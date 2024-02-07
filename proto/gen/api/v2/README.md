@@ -122,6 +122,7 @@
     - [ListMemosRequest](#memos-api-v2-ListMemosRequest)
     - [ListMemosResponse](#memos-api-v2-ListMemosResponse)
     - [Memo](#memos-api-v2-Memo)
+    - [MemoLocation](#memos-api-v2-MemoLocation)
     - [SetMemoRelationsRequest](#memos-api-v2-SetMemoRelationsRequest)
     - [SetMemoRelationsResponse](#memos-api-v2-SetMemoRelationsResponse)
     - [SetMemoResourcesRequest](#memos-api-v2-SetMemoResourcesRequest)
@@ -1399,6 +1400,7 @@ Used internally for obfuscating the page token.
 | ----- | ---- | ----- | ----------- |
 | content | [string](#string) |  |  |
 | visibility | [Visibility](#memos-api-v2-Visibility) |  |  |
+| location | [MemoLocation](#memos-api-v2-MemoLocation) |  |  |
 
 
 
@@ -1728,6 +1730,24 @@ Used internally for obfuscating the page token.
 | parent_id | [int32](#int32) | optional |  |
 | resources | [Resource](#memos-api-v2-Resource) | repeated |  |
 | relations | [MemoRelation](#memos-api-v2-MemoRelation) | repeated |  |
+| location | [MemoLocation](#memos-api-v2-MemoLocation) |  |  |
+
+
+
+
+
+
+<a name="memos-api-v2-MemoLocation"></a>
+
+### MemoLocation
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| latitude | [float](#float) |  |  |
+| longitude | [float](#float) |  |  |
+| name | [string](#string) |  |  |
 
 
 

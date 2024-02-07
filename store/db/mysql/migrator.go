@@ -67,8 +67,11 @@ func (d *DB) nonProdMigrate(ctx context.Context) error {
 }
 
 func (d *DB) prodMigrate(ctx context.Context) error {
+	fmt.Println("start prodMigrate")
 	currentVersion := version.GetCurrentVersion(d.profile.Mode)
+	fmt.Println("currentVersion", currentVersion)
 	migrationHistoryList, err := d.FindMigrationHistoryList(ctx, &store.FindMigrationHistory{})
+	fmt.Println("migrationHistoryList", migrationHistoryList)
 	// If there is no migration history, we should apply the latest schema.
 	if err != nil || len(migrationHistoryList) == 0 {
 		buf, err := migrationFS.ReadFile("migration/prod/" + latestSchemaFileName)

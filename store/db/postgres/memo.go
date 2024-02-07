@@ -12,8 +12,8 @@ import (
 )
 
 func (d *DB) CreateMemo(ctx context.Context, create *store.Memo) (*store.Memo, error) {
-	fields := []string{"resource_name", "creator_id", "content", "visibility"}
-	args := []any{create.ResourceName, create.CreatorID, create.Content, create.Visibility}
+	fields := []string{"resource_name", "creator_id", "content", "visibility", "location_name", "location_lat", "location_lon"}
+	args := []any{create.ResourceName, create.CreatorID, create.Content, create.Visibility, create.LocationName, create.LocationLat, create.LocationLon}
 
 	stmt := "INSERT INTO memo (" + strings.Join(fields, ", ") + ") VALUES (" + placeholders(len(args)) + ") RETURNING id, created_ts, updated_ts, row_status"
 	if err := d.db.QueryRowContext(ctx, stmt, args...).Scan(
@@ -93,6 +93,9 @@ func (d *DB) ListMemos(ctx context.Context, find *store.FindMemo) ([]*store.Memo
 		`memo.visibility AS visibility`,
 		`COALESCE(memo_organizer.pinned, 0) AS pinned`,
 		`memo_relation.related_memo_id AS parent_id`,
+		`memo.location_name AS location_name`,
+		`memo.location_lat AS location_lat`,
+		`memo.location_lon AS location_lon`,
 	}
 	if !find.ExcludeContent {
 		fields = append(fields, `memo.content AS content`)
@@ -130,6 +133,9 @@ func (d *DB) ListMemos(ctx context.Context, find *store.FindMemo) ([]*store.Memo
 			&memo.Visibility,
 			&memo.Pinned,
 			&memo.ParentID,
+			&memo.LocationName,
+			&memo.LocationLat,
+			&memo.LocationLon,
 		}
 		if !find.ExcludeContent {
 			dests = append(dests, &memo.Content)

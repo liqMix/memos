@@ -42,7 +42,10 @@ CREATE TABLE `memo` (
   `updated_ts` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `row_status` VARCHAR(256) NOT NULL DEFAULT 'NORMAL',
   `content` TEXT NOT NULL,
-  `visibility` VARCHAR(256) NOT NULL DEFAULT 'PRIVATE'
+  `visibility` VARCHAR(256) NOT NULL DEFAULT 'PRIVATE',
+  `location_name` VARCHAR(256),
+  `location_lat` FLOAT,
+  `location_lon` FLOAT
 );
 
 -- memo_organizer

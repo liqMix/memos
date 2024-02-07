@@ -27,6 +27,7 @@ import showShareMemoDialog from "./ShareMemoDialog";
 import UserAvatar from "./UserAvatar";
 import VisibilityIcon from "./VisibilityIcon";
 import "@/less/memo.less";
+import LocationLink from "./LocationLink";
 
 interface Props {
   memo: Memo;
@@ -165,6 +166,7 @@ const MemoView: React.FC<Props> = (props: Props) => {
     }
   }, []);
 
+  console.log({ memo });
   return (
     <div
       className={classNames("group memo-wrapper", "memos-" + memo.id, memo.pinned && props.showPinned ? "pinned" : "", className)}
@@ -190,6 +192,9 @@ const MemoView: React.FC<Props> = (props: Props) => {
           <span className="text-sm text-gray-400 select-none" onClick={handleGotoMemoDetailPage}>
             {displayTime}
           </span>
+          {memo.location && (
+            <LocationLink location={memo?.location} className="ml-2" />
+          )}
           {props.showPinned && memo.pinned && (
             <>
               <Icon.Dot className="w-4 h-auto text-gray-400 dark:text-zinc-400" />

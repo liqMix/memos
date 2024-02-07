@@ -45,11 +45,15 @@ func (s *APIV2Service) CreateMemo(ctx context.Context, request *apiv2pb.CreateMe
 		return nil, status.Errorf(codes.InvalidArgument, "content too long")
 	}
 
+	name, lat, lon := convertLocationToStore(request.Location)
 	create := &store.Memo{
 		ResourceName: shortuuid.New(),
 		CreatorID:    user.ID,
 		Content:      request.Content,
 		Visibility:   convertVisibilityToStore(request.Visibility),
+		LocationName: name,
+		LocationLat:  lat,
+		LocationLon:  lon,
 	}
 	// Find disable public memos system setting.
 	disablePublicMemosSystem, err := s.getDisablePublicMemosSystemSettingValue(ctx)
@@ -545,6 +549,7 @@ func (s *APIV2Service) convertMemoFromStore(ctx context.Context, memo *store.Mem
 		ParentId:    memo.ParentID,
 		Relations:   listMemoRelationsResponse.Relations,
 		Resources:   listMemoResourcesResponse.Resources,
+		Location:    convertLocationFromStore(memo.LocationName, memo.LocationLat, memo.LocationLon),
 	}, nil
 }
 
@@ -608,6 +613,21 @@ func convertVisibilityToStore(visibility apiv2pb.Visibility) store.Visibility {
 	default:
 		return store.Private
 	}
+}
+
+func convertLocationFromStore(locationName string, locationLat, locationLon float32) *apiv2pb.MemoLocation {
+	return &apiv2pb.MemoLocation{
+		Name:      locationName,
+		Latitude:  locationLat,
+		Longitude: locationLon,
+	}
+}
+
+func convertLocationToStore(location *apiv2pb.MemoLocation) (string, float32, float32) {
+	if location == nil {
+		return "", 0, 0
+	}
+	return location.Name, location.Latitude, location.Longitude
 }
 
 func (s *APIV2Service) buildMemoFindWithFilter(ctx context.Context, find *store.FindMemo, filter string) error {

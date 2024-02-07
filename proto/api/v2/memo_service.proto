@@ -105,6 +105,12 @@ enum Visibility {
   PUBLIC = 3;
 }
 
+message MemoLocation {
+  float latitude = 1;
+  float longitude = 2;
+  string name = 3;
+}
+
 message Memo {
   // id is the system generated unique identifier.
   int32 id = 1;
@@ -137,12 +143,15 @@ message Memo {
   repeated Resource resources = 13 [(google.api.field_behavior) = OUTPUT_ONLY];
 
   repeated MemoRelation relations = 14 [(google.api.field_behavior) = OUTPUT_ONLY];
+
+  MemoLocation location = 15;
 }
 
 message CreateMemoRequest {
   string content = 1;
 
   Visibility visibility = 2;
+  MemoLocation location = 3;
 }
 
 message CreateMemoResponse {

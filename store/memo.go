@@ -3,6 +3,7 @@ package store
 import (
 	"context"
 	"errors"
+	"fmt"
 
 	"github.com/usememos/memos/internal/util"
 )
@@ -46,8 +47,11 @@ type Memo struct {
 	Visibility Visibility
 
 	// Composed fields
-	Pinned   bool
-	ParentID *int32
+	Pinned       bool
+	ParentID     *int32
+	LocationName string
+	LocationLat  float32
+	LocationLon  float32
 }
 
 type FindMemo struct {
@@ -93,6 +97,8 @@ func (s *Store) CreateMemo(ctx context.Context, create *Memo) (*Memo, error) {
 	if !util.ResourceNameMatcher.MatchString(create.ResourceName) {
 		return nil, errors.New("resource name is invalid")
 	}
+	fmt.Println("CreateMemo")
+	fmt.Print(create)
 	return s.driver.CreateMemo(ctx, create)
 }
 

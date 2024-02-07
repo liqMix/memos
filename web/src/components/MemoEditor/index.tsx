@@ -26,6 +26,8 @@ import RelationListView from "./RelationListView";
 import ResourceListView from "./ResourceListView";
 import { handleEditorKeydownWithMarkdownShortcuts, hyperlinkHighlightedText } from "./handlers";
 import { MemoEditorContext } from "./types";
+import LocationLink from "../LocationLink";
+import { useGeoLocationWithName } from "@/hooks/useGeoLocationWithName";
 
 interface Props {
   className?: string;
@@ -50,6 +52,7 @@ const MemoEditor = (props: Props) => {
   const { className, editorClassName, cacheKey, memoId, parentMemoId, autoFocus, onConfirm } = props;
   const { i18n } = useTranslation();
   const t = useTranslate();
+  const location = useGeoLocationWithName();
   const contentCacheKey = `memo-editor-${cacheKey}`;
   const [contentCache, setContentCache] = useLocalStorage<string>(contentCacheKey, "");
   const {
@@ -293,10 +296,12 @@ const MemoEditor = (props: Props) => {
           }
         }
       } else {
+        console.log("location", location)
         // Create memo or memo comment.
         const request = !parentMemoId
           ? memoStore.createMemo({
               content,
+              location,
               visibility: state.memoVisibility,
             })
           : memoServiceClient
@@ -304,6 +309,7 @@ const MemoEditor = (props: Props) => {
                 id: parentMemoId,
                 create: {
                   content,
+                  location,
                   visibility: state.memoVisibility,
                 },
               })
@@ -415,6 +421,7 @@ const MemoEditor = (props: Props) => {
             </Select>
           </div>
           <div className="shrink-0 flex flex-row justify-end items-center">
+            <LocationLink location={location}/>
             <Button
               disabled={!allowSave}
               loading={state.isRequesting}
