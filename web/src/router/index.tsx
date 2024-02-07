@@ -15,6 +15,7 @@ const UserProfile = lazy(() => import("@/pages/UserProfile"));
 const MemoDetail = lazy(() => import("@/pages/MemoDetail"));
 const Archived = lazy(() => import("@/pages/Archived"));
 const Timeline = lazy(() => import("@/pages/Timeline"));
+const Map = lazy(() => import("@/pages/Map"));
 const Resources = lazy(() => import("@/pages/Resources"));
 const Inboxes = lazy(() => import("@/pages/Inboxes"));
 const Setting = lazy(() => import("@/pages/Setting"));
@@ -72,6 +73,14 @@ const router = createBrowserRouter([
             element: (
               <AuthStatusProvider>
                 <Timeline />
+              </AuthStatusProvider>
+            ),
+          },
+          {
+            path: "map",
+            element: (
+              <AuthStatusProvider>
+                <Map />
               </AuthStatusProvider>
             ),
           },

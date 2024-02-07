@@ -35,6 +35,10 @@ service MemoService {
     option (google.api.http) = {get: "/api/v2/memos/name/{name}"};
     option (google.api.method_signature) = "name";
   }
+  // GetMemosWithLocation gets all memos that have locations defined.
+  rpc GetMemosWithLocation(GetMemosWithLocationRequest) returns (GetMemosWithLocationResponse) {
+    option (google.api.http) = {get: "/api/v2/memos/location"};
+  }
   // UpdateMemo updates a memo.
   rpc UpdateMemo(UpdateMemoRequest) returns (UpdateMemoResponse) {
     option (google.api.http) = {
@@ -147,6 +151,12 @@ message Memo {
   MemoLocation location = 15;
 }
 
+message MemoWithLocation {
+  int32 id = 1;
+  int32 creator_id = 2;
+  MemoLocation location = 3;
+}
+
 message CreateMemoRequest {
   string content = 1;
 
@@ -193,6 +203,12 @@ message GetMemoByNameRequest {
 
 message GetMemoByNameResponse {
   Memo memo = 1;
+}
+
+message GetMemosWithLocationRequest {}
+
+message GetMemosWithLocationResponse {
+  repeated MemoWithLocation memos = 1;
 }
 
 message UpdateMemoRequest {

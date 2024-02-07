@@ -151,6 +151,30 @@ func (d *DB) ListMemos(ctx context.Context, find *store.FindMemo) ([]*store.Memo
 	return list, nil
 }
 
+func (d *DB) GetMemosWithLocation(ctx context.Context) ([]*store.MemoWithLocation, error) {
+	query := "SELECT `id`, `creator_id`, `location_name`, `location_lat`, `location_lon` FROM `memo` WHERE `location_name` IS NOT NULL AND `location_lat` IS NOT NULL AND `location_lon` IS NOT NULL AND `visibility' = 'PUBLIC'"
+	rows, err := d.db.QueryContext(ctx, query)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	list := make([]*store.MemoWithLocation, 0)
+	for rows.Next() {
+		var memo store.MemoWithLocation
+		if err := rows.Scan(&memo.ID, &memo.CreatorID, &memo.LocationName, &memo.LocationLat, &memo.LocationLon); err != nil {
+			return nil, err
+		}
+		list = append(list, &memo)
+	}
+
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+
+	return list, nil
+}
+
 func (d *DB) UpdateMemo(ctx context.Context, update *store.UpdateMemo) error {
 	set, args := []string{}, []any{}
 	if v := update.ResourceName; v != nil {

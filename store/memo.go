@@ -93,6 +93,14 @@ type DeleteMemo struct {
 	ID int32
 }
 
+type MemoWithLocation struct {
+	ID           int32
+	CreatorID    int32
+	LocationName string
+	LocationLat  float32
+	LocationLon  float32
+}
+
 func (s *Store) CreateMemo(ctx context.Context, create *Memo) (*Memo, error) {
 	if !util.ResourceNameMatcher.MatchString(create.ResourceName) {
 		return nil, errors.New("resource name is invalid")
@@ -117,6 +125,10 @@ func (s *Store) GetMemo(ctx context.Context, find *FindMemo) (*Memo, error) {
 
 	memo := list[0]
 	return memo, nil
+}
+
+func (s *Store) GetMemosWithLocation(ctx context.Context) ([]*MemoWithLocation, error) {
+	return s.driver.GetMemosWithLocation(ctx)
 }
 
 func (s *Store) UpdateMemo(ctx context.Context, update *UpdateMemo) error {

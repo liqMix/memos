@@ -140,6 +140,31 @@ func (s *APIV2Service) ListMemos(ctx context.Context, request *apiv2pb.ListMemos
 	return response, nil
 }
 
+func (s *APIV2Service) GetMemosWithLocation(ctx context.Context, _ *apiv2pb.GetMemosWithLocationRequest) (*apiv2pb.GetMemosWithLocationResponse, error) {
+	memos, err := s.Store.GetMemosWithLocation(ctx)
+	if err != nil {
+		return nil, status.Errorf(codes.Internal, "failed to get memos with location")
+	}
+
+	memoList := []*apiv2pb.MemoWithLocation{}
+	for _, memo := range memos {
+		location := convertLocationFromStore(memo.LocationName, memo.LocationLat, memo.LocationLon)
+		memoMessage := &apiv2pb.MemoWithLocation{
+			Id:        int32(memo.ID),
+			CreatorId: int32(memo.CreatorID),
+			Location:  location,
+		}
+		if err != nil {
+			return nil, errors.Wrap(err, "failed to convert memo")
+		}
+		memoList = append(memoList, memoMessage)
+	}
+	response := &apiv2pb.GetMemosWithLocationResponse{
+		Memos: memoList,
+	}
+	return response, nil
+}
+
 func (s *APIV2Service) GetMemo(ctx context.Context, request *apiv2pb.GetMemoRequest) (*apiv2pb.GetMemoResponse, error) {
 	memo, err := s.Store.GetMemo(ctx, &store.FindMemo{
 		ID: &request.Id,

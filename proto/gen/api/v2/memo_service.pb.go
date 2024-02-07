@@ -301,6 +301,69 @@ func (x *Memo) GetLocation() *MemoLocation {
 	return nil
 }
 
+type MemoWithLocation struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id        int32         `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	CreatorId int32         `protobuf:"varint,2,opt,name=creator_id,json=creatorId,proto3" json:"creator_id,omitempty"`
+	Location  *MemoLocation `protobuf:"bytes,3,opt,name=location,proto3" json:"location,omitempty"`
+}
+
+func (x *MemoWithLocation) Reset() {
+	*x = MemoWithLocation{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_api_v2_memo_service_proto_msgTypes[2]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *MemoWithLocation) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MemoWithLocation) ProtoMessage() {}
+
+func (x *MemoWithLocation) ProtoReflect() protoreflect.Message {
+	mi := &file_api_v2_memo_service_proto_msgTypes[2]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use MemoWithLocation.ProtoReflect.Descriptor instead.
+func (*MemoWithLocation) Descriptor() ([]byte, []int) {
+	return file_api_v2_memo_service_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *MemoWithLocation) GetId() int32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *MemoWithLocation) GetCreatorId() int32 {
+	if x != nil {
+		return x.CreatorId
+	}
+	return 0
+}
+
+func (x *MemoWithLocation) GetLocation() *MemoLocation {
+	if x != nil {
+		return x.Location
+	}
+	return nil
+}
+
 type CreateMemoRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -314,7 +377,7 @@ type CreateMemoRequest struct {
 func (x *CreateMemoRequest) Reset() {
 	*x = CreateMemoRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_v2_memo_service_proto_msgTypes[2]
+		mi := &file_api_v2_memo_service_proto_msgTypes[3]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -327,7 +390,7 @@ func (x *CreateMemoRequest) String() string {
 func (*CreateMemoRequest) ProtoMessage() {}
 
 func (x *CreateMemoRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_v2_memo_service_proto_msgTypes[2]
+	mi := &file_api_v2_memo_service_proto_msgTypes[3]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -340,7 +403,7 @@ func (x *CreateMemoRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateMemoRequest.ProtoReflect.Descriptor instead.
 func (*CreateMemoRequest) Descriptor() ([]byte, []int) {
-	return file_api_v2_memo_service_proto_rawDescGZIP(), []int{2}
+	return file_api_v2_memo_service_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *CreateMemoRequest) GetContent() string {
@@ -375,7 +438,7 @@ type CreateMemoResponse struct {
 func (x *CreateMemoResponse) Reset() {
 	*x = CreateMemoResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_v2_memo_service_proto_msgTypes[3]
+		mi := &file_api_v2_memo_service_proto_msgTypes[4]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -388,7 +451,7 @@ func (x *CreateMemoResponse) String() string {
 func (*CreateMemoResponse) ProtoMessage() {}
 
 func (x *CreateMemoResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_v2_memo_service_proto_msgTypes[3]
+	mi := &file_api_v2_memo_service_proto_msgTypes[4]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -401,7 +464,7 @@ func (x *CreateMemoResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateMemoResponse.ProtoReflect.Descriptor instead.
 func (*CreateMemoResponse) Descriptor() ([]byte, []int) {
-	return file_api_v2_memo_service_proto_rawDescGZIP(), []int{3}
+	return file_api_v2_memo_service_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *CreateMemoResponse) GetMemo() *Memo {
@@ -429,7 +492,7 @@ type ListMemosRequest struct {
 func (x *ListMemosRequest) Reset() {
 	*x = ListMemosRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_v2_memo_service_proto_msgTypes[4]
+		mi := &file_api_v2_memo_service_proto_msgTypes[5]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -442,7 +505,7 @@ func (x *ListMemosRequest) String() string {
 func (*ListMemosRequest) ProtoMessage() {}
 
 func (x *ListMemosRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_v2_memo_service_proto_msgTypes[4]
+	mi := &file_api_v2_memo_service_proto_msgTypes[5]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -455,7 +518,7 @@ func (x *ListMemosRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListMemosRequest.ProtoReflect.Descriptor instead.
 func (*ListMemosRequest) Descriptor() ([]byte, []int) {
-	return file_api_v2_memo_service_proto_rawDescGZIP(), []int{4}
+	return file_api_v2_memo_service_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *ListMemosRequest) GetPageSize() int32 {
@@ -493,7 +556,7 @@ type ListMemosResponse struct {
 func (x *ListMemosResponse) Reset() {
 	*x = ListMemosResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_v2_memo_service_proto_msgTypes[5]
+		mi := &file_api_v2_memo_service_proto_msgTypes[6]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -506,7 +569,7 @@ func (x *ListMemosResponse) String() string {
 func (*ListMemosResponse) ProtoMessage() {}
 
 func (x *ListMemosResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_v2_memo_service_proto_msgTypes[5]
+	mi := &file_api_v2_memo_service_proto_msgTypes[6]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -519,7 +582,7 @@ func (x *ListMemosResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListMemosResponse.ProtoReflect.Descriptor instead.
 func (*ListMemosResponse) Descriptor() ([]byte, []int) {
-	return file_api_v2_memo_service_proto_rawDescGZIP(), []int{5}
+	return file_api_v2_memo_service_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *ListMemosResponse) GetMemos() []*Memo {
@@ -547,7 +610,7 @@ type GetMemoRequest struct {
 func (x *GetMemoRequest) Reset() {
 	*x = GetMemoRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_v2_memo_service_proto_msgTypes[6]
+		mi := &file_api_v2_memo_service_proto_msgTypes[7]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -560,7 +623,7 @@ func (x *GetMemoRequest) String() string {
 func (*GetMemoRequest) ProtoMessage() {}
 
 func (x *GetMemoRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_v2_memo_service_proto_msgTypes[6]
+	mi := &file_api_v2_memo_service_proto_msgTypes[7]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -573,7 +636,7 @@ func (x *GetMemoRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetMemoRequest.ProtoReflect.Descriptor instead.
 func (*GetMemoRequest) Descriptor() ([]byte, []int) {
-	return file_api_v2_memo_service_proto_rawDescGZIP(), []int{6}
+	return file_api_v2_memo_service_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *GetMemoRequest) GetId() int32 {
@@ -594,7 +657,7 @@ type GetMemoResponse struct {
 func (x *GetMemoResponse) Reset() {
 	*x = GetMemoResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_v2_memo_service_proto_msgTypes[7]
+		mi := &file_api_v2_memo_service_proto_msgTypes[8]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -607,7 +670,7 @@ func (x *GetMemoResponse) String() string {
 func (*GetMemoResponse) ProtoMessage() {}
 
 func (x *GetMemoResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_v2_memo_service_proto_msgTypes[7]
+	mi := &file_api_v2_memo_service_proto_msgTypes[8]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -620,7 +683,7 @@ func (x *GetMemoResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetMemoResponse.ProtoReflect.Descriptor instead.
 func (*GetMemoResponse) Descriptor() ([]byte, []int) {
-	return file_api_v2_memo_service_proto_rawDescGZIP(), []int{7}
+	return file_api_v2_memo_service_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *GetMemoResponse) GetMemo() *Memo {
@@ -641,7 +704,7 @@ type GetMemoByNameRequest struct {
 func (x *GetMemoByNameRequest) Reset() {
 	*x = GetMemoByNameRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_v2_memo_service_proto_msgTypes[8]
+		mi := &file_api_v2_memo_service_proto_msgTypes[9]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -654,7 +717,7 @@ func (x *GetMemoByNameRequest) String() string {
 func (*GetMemoByNameRequest) ProtoMessage() {}
 
 func (x *GetMemoByNameRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_v2_memo_service_proto_msgTypes[8]
+	mi := &file_api_v2_memo_service_proto_msgTypes[9]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -667,7 +730,7 @@ func (x *GetMemoByNameRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetMemoByNameRequest.ProtoReflect.Descriptor instead.
 func (*GetMemoByNameRequest) Descriptor() ([]byte, []int) {
-	return file_api_v2_memo_service_proto_rawDescGZIP(), []int{8}
+	return file_api_v2_memo_service_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *GetMemoByNameRequest) GetName() string {
@@ -688,7 +751,7 @@ type GetMemoByNameResponse struct {
 func (x *GetMemoByNameResponse) Reset() {
 	*x = GetMemoByNameResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_v2_memo_service_proto_msgTypes[9]
+		mi := &file_api_v2_memo_service_proto_msgTypes[10]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -701,7 +764,7 @@ func (x *GetMemoByNameResponse) String() string {
 func (*GetMemoByNameResponse) ProtoMessage() {}
 
 func (x *GetMemoByNameResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_v2_memo_service_proto_msgTypes[9]
+	mi := &file_api_v2_memo_service_proto_msgTypes[10]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -714,12 +777,97 @@ func (x *GetMemoByNameResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetMemoByNameResponse.ProtoReflect.Descriptor instead.
 func (*GetMemoByNameResponse) Descriptor() ([]byte, []int) {
-	return file_api_v2_memo_service_proto_rawDescGZIP(), []int{9}
+	return file_api_v2_memo_service_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *GetMemoByNameResponse) GetMemo() *Memo {
 	if x != nil {
 		return x.Memo
+	}
+	return nil
+}
+
+type GetMemosWithLocationRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *GetMemosWithLocationRequest) Reset() {
+	*x = GetMemosWithLocationRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_api_v2_memo_service_proto_msgTypes[11]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetMemosWithLocationRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetMemosWithLocationRequest) ProtoMessage() {}
+
+func (x *GetMemosWithLocationRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_api_v2_memo_service_proto_msgTypes[11]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetMemosWithLocationRequest.ProtoReflect.Descriptor instead.
+func (*GetMemosWithLocationRequest) Descriptor() ([]byte, []int) {
+	return file_api_v2_memo_service_proto_rawDescGZIP(), []int{11}
+}
+
+type GetMemosWithLocationResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Memos []*MemoWithLocation `protobuf:"bytes,1,rep,name=memos,proto3" json:"memos,omitempty"`
+}
+
+func (x *GetMemosWithLocationResponse) Reset() {
+	*x = GetMemosWithLocationResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_api_v2_memo_service_proto_msgTypes[12]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetMemosWithLocationResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetMemosWithLocationResponse) ProtoMessage() {}
+
+func (x *GetMemosWithLocationResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_api_v2_memo_service_proto_msgTypes[12]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetMemosWithLocationResponse.ProtoReflect.Descriptor instead.
+func (*GetMemosWithLocationResponse) Descriptor() ([]byte, []int) {
+	return file_api_v2_memo_service_proto_rawDescGZIP(), []int{12}
+}
+
+func (x *GetMemosWithLocationResponse) GetMemos() []*MemoWithLocation {
+	if x != nil {
+		return x.Memos
 	}
 	return nil
 }
@@ -736,7 +884,7 @@ type UpdateMemoRequest struct {
 func (x *UpdateMemoRequest) Reset() {
 	*x = UpdateMemoRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_v2_memo_service_proto_msgTypes[10]
+		mi := &file_api_v2_memo_service_proto_msgTypes[13]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -749,7 +897,7 @@ func (x *UpdateMemoRequest) String() string {
 func (*UpdateMemoRequest) ProtoMessage() {}
 
 func (x *UpdateMemoRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_v2_memo_service_proto_msgTypes[10]
+	mi := &file_api_v2_memo_service_proto_msgTypes[13]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -762,7 +910,7 @@ func (x *UpdateMemoRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateMemoRequest.ProtoReflect.Descriptor instead.
 func (*UpdateMemoRequest) Descriptor() ([]byte, []int) {
-	return file_api_v2_memo_service_proto_rawDescGZIP(), []int{10}
+	return file_api_v2_memo_service_proto_rawDescGZIP(), []int{13}
 }
 
 func (x *UpdateMemoRequest) GetMemo() *Memo {
@@ -790,7 +938,7 @@ type UpdateMemoResponse struct {
 func (x *UpdateMemoResponse) Reset() {
 	*x = UpdateMemoResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_v2_memo_service_proto_msgTypes[11]
+		mi := &file_api_v2_memo_service_proto_msgTypes[14]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -803,7 +951,7 @@ func (x *UpdateMemoResponse) String() string {
 func (*UpdateMemoResponse) ProtoMessage() {}
 
 func (x *UpdateMemoResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_v2_memo_service_proto_msgTypes[11]
+	mi := &file_api_v2_memo_service_proto_msgTypes[14]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -816,7 +964,7 @@ func (x *UpdateMemoResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateMemoResponse.ProtoReflect.Descriptor instead.
 func (*UpdateMemoResponse) Descriptor() ([]byte, []int) {
-	return file_api_v2_memo_service_proto_rawDescGZIP(), []int{11}
+	return file_api_v2_memo_service_proto_rawDescGZIP(), []int{14}
 }
 
 func (x *UpdateMemoResponse) GetMemo() *Memo {
@@ -837,7 +985,7 @@ type DeleteMemoRequest struct {
 func (x *DeleteMemoRequest) Reset() {
 	*x = DeleteMemoRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_v2_memo_service_proto_msgTypes[12]
+		mi := &file_api_v2_memo_service_proto_msgTypes[15]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -850,7 +998,7 @@ func (x *DeleteMemoRequest) String() string {
 func (*DeleteMemoRequest) ProtoMessage() {}
 
 func (x *DeleteMemoRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_v2_memo_service_proto_msgTypes[12]
+	mi := &file_api_v2_memo_service_proto_msgTypes[15]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -863,7 +1011,7 @@ func (x *DeleteMemoRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteMemoRequest.ProtoReflect.Descriptor instead.
 func (*DeleteMemoRequest) Descriptor() ([]byte, []int) {
-	return file_api_v2_memo_service_proto_rawDescGZIP(), []int{12}
+	return file_api_v2_memo_service_proto_rawDescGZIP(), []int{15}
 }
 
 func (x *DeleteMemoRequest) GetId() int32 {
@@ -882,7 +1030,7 @@ type DeleteMemoResponse struct {
 func (x *DeleteMemoResponse) Reset() {
 	*x = DeleteMemoResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_v2_memo_service_proto_msgTypes[13]
+		mi := &file_api_v2_memo_service_proto_msgTypes[16]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -895,7 +1043,7 @@ func (x *DeleteMemoResponse) String() string {
 func (*DeleteMemoResponse) ProtoMessage() {}
 
 func (x *DeleteMemoResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_v2_memo_service_proto_msgTypes[13]
+	mi := &file_api_v2_memo_service_proto_msgTypes[16]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -908,7 +1056,7 @@ func (x *DeleteMemoResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteMemoResponse.ProtoReflect.Descriptor instead.
 func (*DeleteMemoResponse) Descriptor() ([]byte, []int) {
-	return file_api_v2_memo_service_proto_rawDescGZIP(), []int{13}
+	return file_api_v2_memo_service_proto_rawDescGZIP(), []int{16}
 }
 
 type SetMemoResourcesRequest struct {
@@ -923,7 +1071,7 @@ type SetMemoResourcesRequest struct {
 func (x *SetMemoResourcesRequest) Reset() {
 	*x = SetMemoResourcesRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_v2_memo_service_proto_msgTypes[14]
+		mi := &file_api_v2_memo_service_proto_msgTypes[17]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -936,7 +1084,7 @@ func (x *SetMemoResourcesRequest) String() string {
 func (*SetMemoResourcesRequest) ProtoMessage() {}
 
 func (x *SetMemoResourcesRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_v2_memo_service_proto_msgTypes[14]
+	mi := &file_api_v2_memo_service_proto_msgTypes[17]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -949,7 +1097,7 @@ func (x *SetMemoResourcesRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SetMemoResourcesRequest.ProtoReflect.Descriptor instead.
 func (*SetMemoResourcesRequest) Descriptor() ([]byte, []int) {
-	return file_api_v2_memo_service_proto_rawDescGZIP(), []int{14}
+	return file_api_v2_memo_service_proto_rawDescGZIP(), []int{17}
 }
 
 func (x *SetMemoResourcesRequest) GetId() int32 {
@@ -975,7 +1123,7 @@ type SetMemoResourcesResponse struct {
 func (x *SetMemoResourcesResponse) Reset() {
 	*x = SetMemoResourcesResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_v2_memo_service_proto_msgTypes[15]
+		mi := &file_api_v2_memo_service_proto_msgTypes[18]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -988,7 +1136,7 @@ func (x *SetMemoResourcesResponse) String() string {
 func (*SetMemoResourcesResponse) ProtoMessage() {}
 
 func (x *SetMemoResourcesResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_v2_memo_service_proto_msgTypes[15]
+	mi := &file_api_v2_memo_service_proto_msgTypes[18]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1001,7 +1149,7 @@ func (x *SetMemoResourcesResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SetMemoResourcesResponse.ProtoReflect.Descriptor instead.
 func (*SetMemoResourcesResponse) Descriptor() ([]byte, []int) {
-	return file_api_v2_memo_service_proto_rawDescGZIP(), []int{15}
+	return file_api_v2_memo_service_proto_rawDescGZIP(), []int{18}
 }
 
 type ListMemoResourcesRequest struct {
@@ -1015,7 +1163,7 @@ type ListMemoResourcesRequest struct {
 func (x *ListMemoResourcesRequest) Reset() {
 	*x = ListMemoResourcesRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_v2_memo_service_proto_msgTypes[16]
+		mi := &file_api_v2_memo_service_proto_msgTypes[19]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1028,7 +1176,7 @@ func (x *ListMemoResourcesRequest) String() string {
 func (*ListMemoResourcesRequest) ProtoMessage() {}
 
 func (x *ListMemoResourcesRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_v2_memo_service_proto_msgTypes[16]
+	mi := &file_api_v2_memo_service_proto_msgTypes[19]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1041,7 +1189,7 @@ func (x *ListMemoResourcesRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListMemoResourcesRequest.ProtoReflect.Descriptor instead.
 func (*ListMemoResourcesRequest) Descriptor() ([]byte, []int) {
-	return file_api_v2_memo_service_proto_rawDescGZIP(), []int{16}
+	return file_api_v2_memo_service_proto_rawDescGZIP(), []int{19}
 }
 
 func (x *ListMemoResourcesRequest) GetId() int32 {
@@ -1062,7 +1210,7 @@ type ListMemoResourcesResponse struct {
 func (x *ListMemoResourcesResponse) Reset() {
 	*x = ListMemoResourcesResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_v2_memo_service_proto_msgTypes[17]
+		mi := &file_api_v2_memo_service_proto_msgTypes[20]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1075,7 +1223,7 @@ func (x *ListMemoResourcesResponse) String() string {
 func (*ListMemoResourcesResponse) ProtoMessage() {}
 
 func (x *ListMemoResourcesResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_v2_memo_service_proto_msgTypes[17]
+	mi := &file_api_v2_memo_service_proto_msgTypes[20]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1088,7 +1236,7 @@ func (x *ListMemoResourcesResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListMemoResourcesResponse.ProtoReflect.Descriptor instead.
 func (*ListMemoResourcesResponse) Descriptor() ([]byte, []int) {
-	return file_api_v2_memo_service_proto_rawDescGZIP(), []int{17}
+	return file_api_v2_memo_service_proto_rawDescGZIP(), []int{20}
 }
 
 func (x *ListMemoResourcesResponse) GetResources() []*Resource {
@@ -1110,7 +1258,7 @@ type SetMemoRelationsRequest struct {
 func (x *SetMemoRelationsRequest) Reset() {
 	*x = SetMemoRelationsRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_v2_memo_service_proto_msgTypes[18]
+		mi := &file_api_v2_memo_service_proto_msgTypes[21]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1123,7 +1271,7 @@ func (x *SetMemoRelationsRequest) String() string {
 func (*SetMemoRelationsRequest) ProtoMessage() {}
 
 func (x *SetMemoRelationsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_v2_memo_service_proto_msgTypes[18]
+	mi := &file_api_v2_memo_service_proto_msgTypes[21]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1136,7 +1284,7 @@ func (x *SetMemoRelationsRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SetMemoRelationsRequest.ProtoReflect.Descriptor instead.
 func (*SetMemoRelationsRequest) Descriptor() ([]byte, []int) {
-	return file_api_v2_memo_service_proto_rawDescGZIP(), []int{18}
+	return file_api_v2_memo_service_proto_rawDescGZIP(), []int{21}
 }
 
 func (x *SetMemoRelationsRequest) GetId() int32 {
@@ -1162,7 +1310,7 @@ type SetMemoRelationsResponse struct {
 func (x *SetMemoRelationsResponse) Reset() {
 	*x = SetMemoRelationsResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_v2_memo_service_proto_msgTypes[19]
+		mi := &file_api_v2_memo_service_proto_msgTypes[22]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1175,7 +1323,7 @@ func (x *SetMemoRelationsResponse) String() string {
 func (*SetMemoRelationsResponse) ProtoMessage() {}
 
 func (x *SetMemoRelationsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_v2_memo_service_proto_msgTypes[19]
+	mi := &file_api_v2_memo_service_proto_msgTypes[22]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1188,7 +1336,7 @@ func (x *SetMemoRelationsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SetMemoRelationsResponse.ProtoReflect.Descriptor instead.
 func (*SetMemoRelationsResponse) Descriptor() ([]byte, []int) {
-	return file_api_v2_memo_service_proto_rawDescGZIP(), []int{19}
+	return file_api_v2_memo_service_proto_rawDescGZIP(), []int{22}
 }
 
 type ListMemoRelationsRequest struct {
@@ -1202,7 +1350,7 @@ type ListMemoRelationsRequest struct {
 func (x *ListMemoRelationsRequest) Reset() {
 	*x = ListMemoRelationsRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_v2_memo_service_proto_msgTypes[20]
+		mi := &file_api_v2_memo_service_proto_msgTypes[23]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1215,7 +1363,7 @@ func (x *ListMemoRelationsRequest) String() string {
 func (*ListMemoRelationsRequest) ProtoMessage() {}
 
 func (x *ListMemoRelationsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_v2_memo_service_proto_msgTypes[20]
+	mi := &file_api_v2_memo_service_proto_msgTypes[23]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1228,7 +1376,7 @@ func (x *ListMemoRelationsRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListMemoRelationsRequest.ProtoReflect.Descriptor instead.
 func (*ListMemoRelationsRequest) Descriptor() ([]byte, []int) {
-	return file_api_v2_memo_service_proto_rawDescGZIP(), []int{20}
+	return file_api_v2_memo_service_proto_rawDescGZIP(), []int{23}
 }
 
 func (x *ListMemoRelationsRequest) GetId() int32 {
@@ -1249,7 +1397,7 @@ type ListMemoRelationsResponse struct {
 func (x *ListMemoRelationsResponse) Reset() {
 	*x = ListMemoRelationsResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_v2_memo_service_proto_msgTypes[21]
+		mi := &file_api_v2_memo_service_proto_msgTypes[24]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1262,7 +1410,7 @@ func (x *ListMemoRelationsResponse) String() string {
 func (*ListMemoRelationsResponse) ProtoMessage() {}
 
 func (x *ListMemoRelationsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_v2_memo_service_proto_msgTypes[21]
+	mi := &file_api_v2_memo_service_proto_msgTypes[24]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1275,7 +1423,7 @@ func (x *ListMemoRelationsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListMemoRelationsResponse.ProtoReflect.Descriptor instead.
 func (*ListMemoRelationsResponse) Descriptor() ([]byte, []int) {
-	return file_api_v2_memo_service_proto_rawDescGZIP(), []int{21}
+	return file_api_v2_memo_service_proto_rawDescGZIP(), []int{24}
 }
 
 func (x *ListMemoRelationsResponse) GetRelations() []*MemoRelation {
@@ -1298,7 +1446,7 @@ type CreateMemoCommentRequest struct {
 func (x *CreateMemoCommentRequest) Reset() {
 	*x = CreateMemoCommentRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_v2_memo_service_proto_msgTypes[22]
+		mi := &file_api_v2_memo_service_proto_msgTypes[25]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1311,7 +1459,7 @@ func (x *CreateMemoCommentRequest) String() string {
 func (*CreateMemoCommentRequest) ProtoMessage() {}
 
 func (x *CreateMemoCommentRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_v2_memo_service_proto_msgTypes[22]
+	mi := &file_api_v2_memo_service_proto_msgTypes[25]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1324,7 +1472,7 @@ func (x *CreateMemoCommentRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateMemoCommentRequest.ProtoReflect.Descriptor instead.
 func (*CreateMemoCommentRequest) Descriptor() ([]byte, []int) {
-	return file_api_v2_memo_service_proto_rawDescGZIP(), []int{22}
+	return file_api_v2_memo_service_proto_rawDescGZIP(), []int{25}
 }
 
 func (x *CreateMemoCommentRequest) GetId() int32 {
@@ -1352,7 +1500,7 @@ type CreateMemoCommentResponse struct {
 func (x *CreateMemoCommentResponse) Reset() {
 	*x = CreateMemoCommentResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_v2_memo_service_proto_msgTypes[23]
+		mi := &file_api_v2_memo_service_proto_msgTypes[26]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1365,7 +1513,7 @@ func (x *CreateMemoCommentResponse) String() string {
 func (*CreateMemoCommentResponse) ProtoMessage() {}
 
 func (x *CreateMemoCommentResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_v2_memo_service_proto_msgTypes[23]
+	mi := &file_api_v2_memo_service_proto_msgTypes[26]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1378,7 +1526,7 @@ func (x *CreateMemoCommentResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateMemoCommentResponse.ProtoReflect.Descriptor instead.
 func (*CreateMemoCommentResponse) Descriptor() ([]byte, []int) {
-	return file_api_v2_memo_service_proto_rawDescGZIP(), []int{23}
+	return file_api_v2_memo_service_proto_rawDescGZIP(), []int{26}
 }
 
 func (x *CreateMemoCommentResponse) GetMemo() *Memo {
@@ -1399,7 +1547,7 @@ type ListMemoCommentsRequest struct {
 func (x *ListMemoCommentsRequest) Reset() {
 	*x = ListMemoCommentsRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_v2_memo_service_proto_msgTypes[24]
+		mi := &file_api_v2_memo_service_proto_msgTypes[27]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1412,7 +1560,7 @@ func (x *ListMemoCommentsRequest) String() string {
 func (*ListMemoCommentsRequest) ProtoMessage() {}
 
 func (x *ListMemoCommentsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_v2_memo_service_proto_msgTypes[24]
+	mi := &file_api_v2_memo_service_proto_msgTypes[27]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1425,7 +1573,7 @@ func (x *ListMemoCommentsRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListMemoCommentsRequest.ProtoReflect.Descriptor instead.
 func (*ListMemoCommentsRequest) Descriptor() ([]byte, []int) {
-	return file_api_v2_memo_service_proto_rawDescGZIP(), []int{24}
+	return file_api_v2_memo_service_proto_rawDescGZIP(), []int{27}
 }
 
 func (x *ListMemoCommentsRequest) GetId() int32 {
@@ -1446,7 +1594,7 @@ type ListMemoCommentsResponse struct {
 func (x *ListMemoCommentsResponse) Reset() {
 	*x = ListMemoCommentsResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_v2_memo_service_proto_msgTypes[25]
+		mi := &file_api_v2_memo_service_proto_msgTypes[28]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1459,7 +1607,7 @@ func (x *ListMemoCommentsResponse) String() string {
 func (*ListMemoCommentsResponse) ProtoMessage() {}
 
 func (x *ListMemoCommentsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_v2_memo_service_proto_msgTypes[25]
+	mi := &file_api_v2_memo_service_proto_msgTypes[28]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1472,7 +1620,7 @@ func (x *ListMemoCommentsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListMemoCommentsResponse.ProtoReflect.Descriptor instead.
 func (*ListMemoCommentsResponse) Descriptor() ([]byte, []int) {
-	return file_api_v2_memo_service_proto_rawDescGZIP(), []int{25}
+	return file_api_v2_memo_service_proto_rawDescGZIP(), []int{28}
 }
 
 func (x *ListMemoCommentsResponse) GetMemos() []*Memo {
@@ -1501,7 +1649,7 @@ type GetUserMemosStatsRequest struct {
 func (x *GetUserMemosStatsRequest) Reset() {
 	*x = GetUserMemosStatsRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_v2_memo_service_proto_msgTypes[26]
+		mi := &file_api_v2_memo_service_proto_msgTypes[29]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1514,7 +1662,7 @@ func (x *GetUserMemosStatsRequest) String() string {
 func (*GetUserMemosStatsRequest) ProtoMessage() {}
 
 func (x *GetUserMemosStatsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_v2_memo_service_proto_msgTypes[26]
+	mi := &file_api_v2_memo_service_proto_msgTypes[29]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1527,7 +1675,7 @@ func (x *GetUserMemosStatsRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetUserMemosStatsRequest.ProtoReflect.Descriptor instead.
 func (*GetUserMemosStatsRequest) Descriptor() ([]byte, []int) {
-	return file_api_v2_memo_service_proto_rawDescGZIP(), []int{26}
+	return file_api_v2_memo_service_proto_rawDescGZIP(), []int{29}
 }
 
 func (x *GetUserMemosStatsRequest) GetName() string {
@@ -1564,7 +1712,7 @@ type GetUserMemosStatsResponse struct {
 func (x *GetUserMemosStatsResponse) Reset() {
 	*x = GetUserMemosStatsResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_v2_memo_service_proto_msgTypes[27]
+		mi := &file_api_v2_memo_service_proto_msgTypes[30]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1577,7 +1725,7 @@ func (x *GetUserMemosStatsResponse) String() string {
 func (*GetUserMemosStatsResponse) ProtoMessage() {}
 
 func (x *GetUserMemosStatsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_v2_memo_service_proto_msgTypes[27]
+	mi := &file_api_v2_memo_service_proto_msgTypes[30]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1590,7 +1738,7 @@ func (x *GetUserMemosStatsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetUserMemosStatsResponse.ProtoReflect.Descriptor instead.
 func (*GetUserMemosStatsResponse) Descriptor() ([]byte, []int) {
-	return file_api_v2_memo_service_proto_rawDescGZIP(), []int{27}
+	return file_api_v2_memo_service_proto_rawDescGZIP(), []int{30}
 }
 
 func (x *GetUserMemosStatsResponse) GetStats() map[string]int32 {
@@ -1612,7 +1760,7 @@ type ExportMemosRequest struct {
 func (x *ExportMemosRequest) Reset() {
 	*x = ExportMemosRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_v2_memo_service_proto_msgTypes[28]
+		mi := &file_api_v2_memo_service_proto_msgTypes[31]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1625,7 +1773,7 @@ func (x *ExportMemosRequest) String() string {
 func (*ExportMemosRequest) ProtoMessage() {}
 
 func (x *ExportMemosRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_v2_memo_service_proto_msgTypes[28]
+	mi := &file_api_v2_memo_service_proto_msgTypes[31]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1638,7 +1786,7 @@ func (x *ExportMemosRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ExportMemosRequest.ProtoReflect.Descriptor instead.
 func (*ExportMemosRequest) Descriptor() ([]byte, []int) {
-	return file_api_v2_memo_service_proto_rawDescGZIP(), []int{28}
+	return file_api_v2_memo_service_proto_rawDescGZIP(), []int{31}
 }
 
 func (x *ExportMemosRequest) GetFilter() string {
@@ -1659,7 +1807,7 @@ type ExportMemosResponse struct {
 func (x *ExportMemosResponse) Reset() {
 	*x = ExportMemosResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_v2_memo_service_proto_msgTypes[29]
+		mi := &file_api_v2_memo_service_proto_msgTypes[32]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1672,7 +1820,7 @@ func (x *ExportMemosResponse) String() string {
 func (*ExportMemosResponse) ProtoMessage() {}
 
 func (x *ExportMemosResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_v2_memo_service_proto_msgTypes[29]
+	mi := &file_api_v2_memo_service_proto_msgTypes[32]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1685,7 +1833,7 @@ func (x *ExportMemosResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ExportMemosResponse.ProtoReflect.Descriptor instead.
 func (*ExportMemosResponse) Descriptor() ([]byte, []int) {
-	return file_api_v2_memo_service_proto_rawDescGZIP(), []int{29}
+	return file_api_v2_memo_service_proto_rawDescGZIP(), []int{32}
 }
 
 func (x *ExportMemosResponse) GetContent() []byte {
@@ -1764,46 +1912,61 @@ var file_api_v2_memo_service_proto_rawDesc = []byte{
 	0x32, 0x1a, 0x2e, 0x6d, 0x65, 0x6d, 0x6f, 0x73, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x76, 0x32, 0x2e,
 	0x4d, 0x65, 0x6d, 0x6f, 0x4c, 0x6f, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x08, 0x6c, 0x6f,
 	0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x42, 0x0c, 0x0a, 0x0a, 0x5f, 0x70, 0x61, 0x72, 0x65, 0x6e,
-	0x74, 0x5f, 0x69, 0x64, 0x22, 0x9f, 0x01, 0x0a, 0x11, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x4d,
-	0x65, 0x6d, 0x6f, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x18, 0x0a, 0x07, 0x63, 0x6f,
-	0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x63, 0x6f, 0x6e,
-	0x74, 0x65, 0x6e, 0x74, 0x12, 0x38, 0x0a, 0x0a, 0x76, 0x69, 0x73, 0x69, 0x62, 0x69, 0x6c, 0x69,
-	0x74, 0x79, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x18, 0x2e, 0x6d, 0x65, 0x6d, 0x6f, 0x73,
-	0x2e, 0x61, 0x70, 0x69, 0x2e, 0x76, 0x32, 0x2e, 0x56, 0x69, 0x73, 0x69, 0x62, 0x69, 0x6c, 0x69,
-	0x74, 0x79, 0x52, 0x0a, 0x76, 0x69, 0x73, 0x69, 0x62, 0x69, 0x6c, 0x69, 0x74, 0x79, 0x12, 0x36,
-	0x0a, 0x08, 0x6c, 0x6f, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0b,
-	0x32, 0x1a, 0x2e, 0x6d, 0x65, 0x6d, 0x6f, 0x73, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x76, 0x32, 0x2e,
-	0x4d, 0x65, 0x6d, 0x6f, 0x4c, 0x6f, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x08, 0x6c, 0x6f,
-	0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x22, 0x3c, 0x0a, 0x12, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65,
-	0x4d, 0x65, 0x6d, 0x6f, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x26, 0x0a, 0x04,
-	0x6d, 0x65, 0x6d, 0x6f, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x12, 0x2e, 0x6d, 0x65, 0x6d,
-	0x6f, 0x73, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x76, 0x32, 0x2e, 0x4d, 0x65, 0x6d, 0x6f, 0x52, 0x04,
-	0x6d, 0x65, 0x6d, 0x6f, 0x22, 0x66, 0x0a, 0x10, 0x4c, 0x69, 0x73, 0x74, 0x4d, 0x65, 0x6d, 0x6f,
-	0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x1b, 0x0a, 0x09, 0x70, 0x61, 0x67, 0x65,
-	0x5f, 0x73, 0x69, 0x7a, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x08, 0x70, 0x61, 0x67,
-	0x65, 0x53, 0x69, 0x7a, 0x65, 0x12, 0x1d, 0x0a, 0x0a, 0x70, 0x61, 0x67, 0x65, 0x5f, 0x74, 0x6f,
-	0x6b, 0x65, 0x6e, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x70, 0x61, 0x67, 0x65, 0x54,
-	0x6f, 0x6b, 0x65, 0x6e, 0x12, 0x16, 0x0a, 0x06, 0x66, 0x69, 0x6c, 0x74, 0x65, 0x72, 0x18, 0x03,
-	0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x66, 0x69, 0x6c, 0x74, 0x65, 0x72, 0x22, 0x65, 0x0a, 0x11,
-	0x4c, 0x69, 0x73, 0x74, 0x4d, 0x65, 0x6d, 0x6f, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
-	0x65, 0x12, 0x28, 0x0a, 0x05, 0x6d, 0x65, 0x6d, 0x6f, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b,
-	0x32, 0x12, 0x2e, 0x6d, 0x65, 0x6d, 0x6f, 0x73, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x76, 0x32, 0x2e,
-	0x4d, 0x65, 0x6d, 0x6f, 0x52, 0x05, 0x6d, 0x65, 0x6d, 0x6f, 0x73, 0x12, 0x26, 0x0a, 0x0f, 0x6e,
-	0x65, 0x78, 0x74, 0x5f, 0x70, 0x61, 0x67, 0x65, 0x5f, 0x74, 0x6f, 0x6b, 0x65, 0x6e, 0x18, 0x02,
-	0x20, 0x01, 0x28, 0x09, 0x52, 0x0d, 0x6e, 0x65, 0x78, 0x74, 0x50, 0x61, 0x67, 0x65, 0x54, 0x6f,
-	0x6b, 0x65, 0x6e, 0x22, 0x20, 0x0a, 0x0e, 0x47, 0x65, 0x74, 0x4d, 0x65, 0x6d, 0x6f, 0x52, 0x65,
-	0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28,
-	0x05, 0x52, 0x02, 0x69, 0x64, 0x22, 0x39, 0x0a, 0x0f, 0x47, 0x65, 0x74, 0x4d, 0x65, 0x6d, 0x6f,
-	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x26, 0x0a, 0x04, 0x6d, 0x65, 0x6d, 0x6f,
-	0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x12, 0x2e, 0x6d, 0x65, 0x6d, 0x6f, 0x73, 0x2e, 0x61,
-	0x70, 0x69, 0x2e, 0x76, 0x32, 0x2e, 0x4d, 0x65, 0x6d, 0x6f, 0x52, 0x04, 0x6d, 0x65, 0x6d, 0x6f,
-	0x22, 0x2a, 0x0a, 0x14, 0x47, 0x65, 0x74, 0x4d, 0x65, 0x6d, 0x6f, 0x42, 0x79, 0x4e, 0x61, 0x6d,
-	0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65,
-	0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x22, 0x3f, 0x0a, 0x15,
-	0x47, 0x65, 0x74, 0x4d, 0x65, 0x6d, 0x6f, 0x42, 0x79, 0x4e, 0x61, 0x6d, 0x65, 0x52, 0x65, 0x73,
-	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x26, 0x0a, 0x04, 0x6d, 0x65, 0x6d, 0x6f, 0x18, 0x01, 0x20,
-	0x01, 0x28, 0x0b, 0x32, 0x12, 0x2e, 0x6d, 0x65, 0x6d, 0x6f, 0x73, 0x2e, 0x61, 0x70, 0x69, 0x2e,
-	0x76, 0x32, 0x2e, 0x4d, 0x65, 0x6d, 0x6f, 0x52, 0x04, 0x6d, 0x65, 0x6d, 0x6f, 0x22, 0x78, 0x0a,
+	0x74, 0x5f, 0x69, 0x64, 0x22, 0x79, 0x0a, 0x10, 0x4d, 0x65, 0x6d, 0x6f, 0x57, 0x69, 0x74, 0x68,
+	0x4c, 0x6f, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01,
+	0x20, 0x01, 0x28, 0x05, 0x52, 0x02, 0x69, 0x64, 0x12, 0x1d, 0x0a, 0x0a, 0x63, 0x72, 0x65, 0x61,
+	0x74, 0x6f, 0x72, 0x5f, 0x69, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x05, 0x52, 0x09, 0x63, 0x72,
+	0x65, 0x61, 0x74, 0x6f, 0x72, 0x49, 0x64, 0x12, 0x36, 0x0a, 0x08, 0x6c, 0x6f, 0x63, 0x61, 0x74,
+	0x69, 0x6f, 0x6e, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x6d, 0x65, 0x6d, 0x6f,
+	0x73, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x76, 0x32, 0x2e, 0x4d, 0x65, 0x6d, 0x6f, 0x4c, 0x6f, 0x63,
+	0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x08, 0x6c, 0x6f, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x22,
+	0x9f, 0x01, 0x0a, 0x11, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x4d, 0x65, 0x6d, 0x6f, 0x52, 0x65,
+	0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x18, 0x0a, 0x07, 0x63, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74,
+	0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x63, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x12,
+	0x38, 0x0a, 0x0a, 0x76, 0x69, 0x73, 0x69, 0x62, 0x69, 0x6c, 0x69, 0x74, 0x79, 0x18, 0x02, 0x20,
+	0x01, 0x28, 0x0e, 0x32, 0x18, 0x2e, 0x6d, 0x65, 0x6d, 0x6f, 0x73, 0x2e, 0x61, 0x70, 0x69, 0x2e,
+	0x76, 0x32, 0x2e, 0x56, 0x69, 0x73, 0x69, 0x62, 0x69, 0x6c, 0x69, 0x74, 0x79, 0x52, 0x0a, 0x76,
+	0x69, 0x73, 0x69, 0x62, 0x69, 0x6c, 0x69, 0x74, 0x79, 0x12, 0x36, 0x0a, 0x08, 0x6c, 0x6f, 0x63,
+	0x61, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x6d, 0x65,
+	0x6d, 0x6f, 0x73, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x76, 0x32, 0x2e, 0x4d, 0x65, 0x6d, 0x6f, 0x4c,
+	0x6f, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x08, 0x6c, 0x6f, 0x63, 0x61, 0x74, 0x69, 0x6f,
+	0x6e, 0x22, 0x3c, 0x0a, 0x12, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x4d, 0x65, 0x6d, 0x6f, 0x52,
+	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x26, 0x0a, 0x04, 0x6d, 0x65, 0x6d, 0x6f, 0x18,
+	0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x12, 0x2e, 0x6d, 0x65, 0x6d, 0x6f, 0x73, 0x2e, 0x61, 0x70,
+	0x69, 0x2e, 0x76, 0x32, 0x2e, 0x4d, 0x65, 0x6d, 0x6f, 0x52, 0x04, 0x6d, 0x65, 0x6d, 0x6f, 0x22,
+	0x66, 0x0a, 0x10, 0x4c, 0x69, 0x73, 0x74, 0x4d, 0x65, 0x6d, 0x6f, 0x73, 0x52, 0x65, 0x71, 0x75,
+	0x65, 0x73, 0x74, 0x12, 0x1b, 0x0a, 0x09, 0x70, 0x61, 0x67, 0x65, 0x5f, 0x73, 0x69, 0x7a, 0x65,
+	0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x08, 0x70, 0x61, 0x67, 0x65, 0x53, 0x69, 0x7a, 0x65,
+	0x12, 0x1d, 0x0a, 0x0a, 0x70, 0x61, 0x67, 0x65, 0x5f, 0x74, 0x6f, 0x6b, 0x65, 0x6e, 0x18, 0x02,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x70, 0x61, 0x67, 0x65, 0x54, 0x6f, 0x6b, 0x65, 0x6e, 0x12,
+	0x16, 0x0a, 0x06, 0x66, 0x69, 0x6c, 0x74, 0x65, 0x72, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52,
+	0x06, 0x66, 0x69, 0x6c, 0x74, 0x65, 0x72, 0x22, 0x65, 0x0a, 0x11, 0x4c, 0x69, 0x73, 0x74, 0x4d,
+	0x65, 0x6d, 0x6f, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x28, 0x0a, 0x05,
+	0x6d, 0x65, 0x6d, 0x6f, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x12, 0x2e, 0x6d, 0x65,
+	0x6d, 0x6f, 0x73, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x76, 0x32, 0x2e, 0x4d, 0x65, 0x6d, 0x6f, 0x52,
+	0x05, 0x6d, 0x65, 0x6d, 0x6f, 0x73, 0x12, 0x26, 0x0a, 0x0f, 0x6e, 0x65, 0x78, 0x74, 0x5f, 0x70,
+	0x61, 0x67, 0x65, 0x5f, 0x74, 0x6f, 0x6b, 0x65, 0x6e, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52,
+	0x0d, 0x6e, 0x65, 0x78, 0x74, 0x50, 0x61, 0x67, 0x65, 0x54, 0x6f, 0x6b, 0x65, 0x6e, 0x22, 0x20,
+	0x0a, 0x0e, 0x47, 0x65, 0x74, 0x4d, 0x65, 0x6d, 0x6f, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
+	0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x02, 0x69, 0x64,
+	0x22, 0x39, 0x0a, 0x0f, 0x47, 0x65, 0x74, 0x4d, 0x65, 0x6d, 0x6f, 0x52, 0x65, 0x73, 0x70, 0x6f,
+	0x6e, 0x73, 0x65, 0x12, 0x26, 0x0a, 0x04, 0x6d, 0x65, 0x6d, 0x6f, 0x18, 0x01, 0x20, 0x01, 0x28,
+	0x0b, 0x32, 0x12, 0x2e, 0x6d, 0x65, 0x6d, 0x6f, 0x73, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x76, 0x32,
+	0x2e, 0x4d, 0x65, 0x6d, 0x6f, 0x52, 0x04, 0x6d, 0x65, 0x6d, 0x6f, 0x22, 0x2a, 0x0a, 0x14, 0x47,
+	0x65, 0x74, 0x4d, 0x65, 0x6d, 0x6f, 0x42, 0x79, 0x4e, 0x61, 0x6d, 0x65, 0x52, 0x65, 0x71, 0x75,
+	0x65, 0x73, 0x74, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28,
+	0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x22, 0x3f, 0x0a, 0x15, 0x47, 0x65, 0x74, 0x4d, 0x65,
+	0x6d, 0x6f, 0x42, 0x79, 0x4e, 0x61, 0x6d, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
+	0x12, 0x26, 0x0a, 0x04, 0x6d, 0x65, 0x6d, 0x6f, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x12,
+	0x2e, 0x6d, 0x65, 0x6d, 0x6f, 0x73, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x76, 0x32, 0x2e, 0x4d, 0x65,
+	0x6d, 0x6f, 0x52, 0x04, 0x6d, 0x65, 0x6d, 0x6f, 0x22, 0x1d, 0x0a, 0x1b, 0x47, 0x65, 0x74, 0x4d,
+	0x65, 0x6d, 0x6f, 0x73, 0x57, 0x69, 0x74, 0x68, 0x4c, 0x6f, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e,
+	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x22, 0x54, 0x0a, 0x1c, 0x47, 0x65, 0x74, 0x4d, 0x65,
+	0x6d, 0x6f, 0x73, 0x57, 0x69, 0x74, 0x68, 0x4c, 0x6f, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52,
+	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x34, 0x0a, 0x05, 0x6d, 0x65, 0x6d, 0x6f, 0x73,
+	0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x1e, 0x2e, 0x6d, 0x65, 0x6d, 0x6f, 0x73, 0x2e, 0x61,
+	0x70, 0x69, 0x2e, 0x76, 0x32, 0x2e, 0x4d, 0x65, 0x6d, 0x6f, 0x57, 0x69, 0x74, 0x68, 0x4c, 0x6f,
+	0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x05, 0x6d, 0x65, 0x6d, 0x6f, 0x73, 0x22, 0x78, 0x0a,
 	0x11, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x4d, 0x65, 0x6d, 0x6f, 0x52, 0x65, 0x71, 0x75, 0x65,
 	0x73, 0x74, 0x12, 0x26, 0x0a, 0x04, 0x6d, 0x65, 0x6d, 0x6f, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b,
 	0x32, 0x12, 0x2e, 0x6d, 0x65, 0x6d, 0x6f, 0x73, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x76, 0x32, 0x2e,
@@ -1896,7 +2059,7 @@ var file_api_v2_memo_service_proto_rawDesc = []byte{
 	0x50, 0x45, 0x43, 0x49, 0x46, 0x49, 0x45, 0x44, 0x10, 0x00, 0x12, 0x0b, 0x0a, 0x07, 0x50, 0x52,
 	0x49, 0x56, 0x41, 0x54, 0x45, 0x10, 0x01, 0x12, 0x0d, 0x0a, 0x09, 0x50, 0x52, 0x4f, 0x54, 0x45,
 	0x43, 0x54, 0x45, 0x44, 0x10, 0x02, 0x12, 0x0a, 0x0a, 0x06, 0x50, 0x55, 0x42, 0x4c, 0x49, 0x43,
-	0x10, 0x03, 0x32, 0xb1, 0x0e, 0x0a, 0x0b, 0x4d, 0x65, 0x6d, 0x6f, 0x53, 0x65, 0x72, 0x76, 0x69,
+	0x10, 0x03, 0x32, 0xc1, 0x0f, 0x0a, 0x0b, 0x4d, 0x65, 0x6d, 0x6f, 0x53, 0x65, 0x72, 0x76, 0x69,
 	0x63, 0x65, 0x12, 0x69, 0x0a, 0x0a, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x4d, 0x65, 0x6d, 0x6f,
 	0x12, 0x1f, 0x2e, 0x6d, 0x65, 0x6d, 0x6f, 0x73, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x76, 0x32, 0x2e,
 	0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x4d, 0x65, 0x6d, 0x6f, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
@@ -1925,6 +2088,15 @@ var file_api_v2_memo_service_proto_rawDesc = []byte{
 	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x28, 0xda, 0x41, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x82,
 	0xd3, 0xe4, 0x93, 0x02, 0x1b, 0x12, 0x19, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x76, 0x32, 0x2f, 0x6d,
 	0x65, 0x6d, 0x6f, 0x73, 0x2f, 0x6e, 0x61, 0x6d, 0x65, 0x2f, 0x7b, 0x6e, 0x61, 0x6d, 0x65, 0x7d,
+	0x12, 0x8d, 0x01, 0x0a, 0x14, 0x47, 0x65, 0x74, 0x4d, 0x65, 0x6d, 0x6f, 0x73, 0x57, 0x69, 0x74,
+	0x68, 0x4c, 0x6f, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x29, 0x2e, 0x6d, 0x65, 0x6d, 0x6f,
+	0x73, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x76, 0x32, 0x2e, 0x47, 0x65, 0x74, 0x4d, 0x65, 0x6d, 0x6f,
+	0x73, 0x57, 0x69, 0x74, 0x68, 0x4c, 0x6f, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x71,
+	0x75, 0x65, 0x73, 0x74, 0x1a, 0x2a, 0x2e, 0x6d, 0x65, 0x6d, 0x6f, 0x73, 0x2e, 0x61, 0x70, 0x69,
+	0x2e, 0x76, 0x32, 0x2e, 0x47, 0x65, 0x74, 0x4d, 0x65, 0x6d, 0x6f, 0x73, 0x57, 0x69, 0x74, 0x68,
+	0x4c, 0x6f, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
+	0x22, 0x1e, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x18, 0x12, 0x16, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x76,
+	0x32, 0x2f, 0x6d, 0x65, 0x6d, 0x6f, 0x73, 0x2f, 0x6c, 0x6f, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e,
 	0x12, 0x89, 0x01, 0x0a, 0x0a, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x4d, 0x65, 0x6d, 0x6f, 0x12,
 	0x1f, 0x2e, 0x6d, 0x65, 0x6d, 0x6f, 0x73, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x76, 0x32, 0x2e, 0x55,
 	0x70, 0x64, 0x61, 0x74, 0x65, 0x4d, 0x65, 0x6d, 0x6f, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
@@ -2038,105 +2210,112 @@ func file_api_v2_memo_service_proto_rawDescGZIP() []byte {
 }
 
 var file_api_v2_memo_service_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_api_v2_memo_service_proto_msgTypes = make([]protoimpl.MessageInfo, 31)
+var file_api_v2_memo_service_proto_msgTypes = make([]protoimpl.MessageInfo, 34)
 var file_api_v2_memo_service_proto_goTypes = []interface{}{
-	(Visibility)(0),                   // 0: memos.api.v2.Visibility
-	(*MemoLocation)(nil),              // 1: memos.api.v2.MemoLocation
-	(*Memo)(nil),                      // 2: memos.api.v2.Memo
-	(*CreateMemoRequest)(nil),         // 3: memos.api.v2.CreateMemoRequest
-	(*CreateMemoResponse)(nil),        // 4: memos.api.v2.CreateMemoResponse
-	(*ListMemosRequest)(nil),          // 5: memos.api.v2.ListMemosRequest
-	(*ListMemosResponse)(nil),         // 6: memos.api.v2.ListMemosResponse
-	(*GetMemoRequest)(nil),            // 7: memos.api.v2.GetMemoRequest
-	(*GetMemoResponse)(nil),           // 8: memos.api.v2.GetMemoResponse
-	(*GetMemoByNameRequest)(nil),      // 9: memos.api.v2.GetMemoByNameRequest
-	(*GetMemoByNameResponse)(nil),     // 10: memos.api.v2.GetMemoByNameResponse
-	(*UpdateMemoRequest)(nil),         // 11: memos.api.v2.UpdateMemoRequest
-	(*UpdateMemoResponse)(nil),        // 12: memos.api.v2.UpdateMemoResponse
-	(*DeleteMemoRequest)(nil),         // 13: memos.api.v2.DeleteMemoRequest
-	(*DeleteMemoResponse)(nil),        // 14: memos.api.v2.DeleteMemoResponse
-	(*SetMemoResourcesRequest)(nil),   // 15: memos.api.v2.SetMemoResourcesRequest
-	(*SetMemoResourcesResponse)(nil),  // 16: memos.api.v2.SetMemoResourcesResponse
-	(*ListMemoResourcesRequest)(nil),  // 17: memos.api.v2.ListMemoResourcesRequest
-	(*ListMemoResourcesResponse)(nil), // 18: memos.api.v2.ListMemoResourcesResponse
-	(*SetMemoRelationsRequest)(nil),   // 19: memos.api.v2.SetMemoRelationsRequest
-	(*SetMemoRelationsResponse)(nil),  // 20: memos.api.v2.SetMemoRelationsResponse
-	(*ListMemoRelationsRequest)(nil),  // 21: memos.api.v2.ListMemoRelationsRequest
-	(*ListMemoRelationsResponse)(nil), // 22: memos.api.v2.ListMemoRelationsResponse
-	(*CreateMemoCommentRequest)(nil),  // 23: memos.api.v2.CreateMemoCommentRequest
-	(*CreateMemoCommentResponse)(nil), // 24: memos.api.v2.CreateMemoCommentResponse
-	(*ListMemoCommentsRequest)(nil),   // 25: memos.api.v2.ListMemoCommentsRequest
-	(*ListMemoCommentsResponse)(nil),  // 26: memos.api.v2.ListMemoCommentsResponse
-	(*GetUserMemosStatsRequest)(nil),  // 27: memos.api.v2.GetUserMemosStatsRequest
-	(*GetUserMemosStatsResponse)(nil), // 28: memos.api.v2.GetUserMemosStatsResponse
-	(*ExportMemosRequest)(nil),        // 29: memos.api.v2.ExportMemosRequest
-	(*ExportMemosResponse)(nil),       // 30: memos.api.v2.ExportMemosResponse
-	nil,                               // 31: memos.api.v2.GetUserMemosStatsResponse.StatsEntry
-	(RowStatus)(0),                    // 32: memos.api.v2.RowStatus
-	(*timestamppb.Timestamp)(nil),     // 33: google.protobuf.Timestamp
-	(*Resource)(nil),                  // 34: memos.api.v2.Resource
-	(*MemoRelation)(nil),              // 35: memos.api.v2.MemoRelation
-	(*fieldmaskpb.FieldMask)(nil),     // 36: google.protobuf.FieldMask
+	(Visibility)(0),                      // 0: memos.api.v2.Visibility
+	(*MemoLocation)(nil),                 // 1: memos.api.v2.MemoLocation
+	(*Memo)(nil),                         // 2: memos.api.v2.Memo
+	(*MemoWithLocation)(nil),             // 3: memos.api.v2.MemoWithLocation
+	(*CreateMemoRequest)(nil),            // 4: memos.api.v2.CreateMemoRequest
+	(*CreateMemoResponse)(nil),           // 5: memos.api.v2.CreateMemoResponse
+	(*ListMemosRequest)(nil),             // 6: memos.api.v2.ListMemosRequest
+	(*ListMemosResponse)(nil),            // 7: memos.api.v2.ListMemosResponse
+	(*GetMemoRequest)(nil),               // 8: memos.api.v2.GetMemoRequest
+	(*GetMemoResponse)(nil),              // 9: memos.api.v2.GetMemoResponse
+	(*GetMemoByNameRequest)(nil),         // 10: memos.api.v2.GetMemoByNameRequest
+	(*GetMemoByNameResponse)(nil),        // 11: memos.api.v2.GetMemoByNameResponse
+	(*GetMemosWithLocationRequest)(nil),  // 12: memos.api.v2.GetMemosWithLocationRequest
+	(*GetMemosWithLocationResponse)(nil), // 13: memos.api.v2.GetMemosWithLocationResponse
+	(*UpdateMemoRequest)(nil),            // 14: memos.api.v2.UpdateMemoRequest
+	(*UpdateMemoResponse)(nil),           // 15: memos.api.v2.UpdateMemoResponse
+	(*DeleteMemoRequest)(nil),            // 16: memos.api.v2.DeleteMemoRequest
+	(*DeleteMemoResponse)(nil),           // 17: memos.api.v2.DeleteMemoResponse
+	(*SetMemoResourcesRequest)(nil),      // 18: memos.api.v2.SetMemoResourcesRequest
+	(*SetMemoResourcesResponse)(nil),     // 19: memos.api.v2.SetMemoResourcesResponse
+	(*ListMemoResourcesRequest)(nil),     // 20: memos.api.v2.ListMemoResourcesRequest
+	(*ListMemoResourcesResponse)(nil),    // 21: memos.api.v2.ListMemoResourcesResponse
+	(*SetMemoRelationsRequest)(nil),      // 22: memos.api.v2.SetMemoRelationsRequest
+	(*SetMemoRelationsResponse)(nil),     // 23: memos.api.v2.SetMemoRelationsResponse
+	(*ListMemoRelationsRequest)(nil),     // 24: memos.api.v2.ListMemoRelationsRequest
+	(*ListMemoRelationsResponse)(nil),    // 25: memos.api.v2.ListMemoRelationsResponse
+	(*CreateMemoCommentRequest)(nil),     // 26: memos.api.v2.CreateMemoCommentRequest
+	(*CreateMemoCommentResponse)(nil),    // 27: memos.api.v2.CreateMemoCommentResponse
+	(*ListMemoCommentsRequest)(nil),      // 28: memos.api.v2.ListMemoCommentsRequest
+	(*ListMemoCommentsResponse)(nil),     // 29: memos.api.v2.ListMemoCommentsResponse
+	(*GetUserMemosStatsRequest)(nil),     // 30: memos.api.v2.GetUserMemosStatsRequest
+	(*GetUserMemosStatsResponse)(nil),    // 31: memos.api.v2.GetUserMemosStatsResponse
+	(*ExportMemosRequest)(nil),           // 32: memos.api.v2.ExportMemosRequest
+	(*ExportMemosResponse)(nil),          // 33: memos.api.v2.ExportMemosResponse
+	nil,                                  // 34: memos.api.v2.GetUserMemosStatsResponse.StatsEntry
+	(RowStatus)(0),                       // 35: memos.api.v2.RowStatus
+	(*timestamppb.Timestamp)(nil),        // 36: google.protobuf.Timestamp
+	(*Resource)(nil),                     // 37: memos.api.v2.Resource
+	(*MemoRelation)(nil),                 // 38: memos.api.v2.MemoRelation
+	(*fieldmaskpb.FieldMask)(nil),        // 39: google.protobuf.FieldMask
 }
 var file_api_v2_memo_service_proto_depIdxs = []int32{
-	32, // 0: memos.api.v2.Memo.row_status:type_name -> memos.api.v2.RowStatus
-	33, // 1: memos.api.v2.Memo.create_time:type_name -> google.protobuf.Timestamp
-	33, // 2: memos.api.v2.Memo.update_time:type_name -> google.protobuf.Timestamp
-	33, // 3: memos.api.v2.Memo.display_time:type_name -> google.protobuf.Timestamp
+	35, // 0: memos.api.v2.Memo.row_status:type_name -> memos.api.v2.RowStatus
+	36, // 1: memos.api.v2.Memo.create_time:type_name -> google.protobuf.Timestamp
+	36, // 2: memos.api.v2.Memo.update_time:type_name -> google.protobuf.Timestamp
+	36, // 3: memos.api.v2.Memo.display_time:type_name -> google.protobuf.Timestamp
 	0,  // 4: memos.api.v2.Memo.visibility:type_name -> memos.api.v2.Visibility
-	34, // 5: memos.api.v2.Memo.resources:type_name -> memos.api.v2.Resource
-	35, // 6: memos.api.v2.Memo.relations:type_name -> memos.api.v2.MemoRelation
+	37, // 5: memos.api.v2.Memo.resources:type_name -> memos.api.v2.Resource
+	38, // 6: memos.api.v2.Memo.relations:type_name -> memos.api.v2.MemoRelation
 	1,  // 7: memos.api.v2.Memo.location:type_name -> memos.api.v2.MemoLocation
-	0,  // 8: memos.api.v2.CreateMemoRequest.visibility:type_name -> memos.api.v2.Visibility
-	1,  // 9: memos.api.v2.CreateMemoRequest.location:type_name -> memos.api.v2.MemoLocation
-	2,  // 10: memos.api.v2.CreateMemoResponse.memo:type_name -> memos.api.v2.Memo
-	2,  // 11: memos.api.v2.ListMemosResponse.memos:type_name -> memos.api.v2.Memo
-	2,  // 12: memos.api.v2.GetMemoResponse.memo:type_name -> memos.api.v2.Memo
-	2,  // 13: memos.api.v2.GetMemoByNameResponse.memo:type_name -> memos.api.v2.Memo
-	2,  // 14: memos.api.v2.UpdateMemoRequest.memo:type_name -> memos.api.v2.Memo
-	36, // 15: memos.api.v2.UpdateMemoRequest.update_mask:type_name -> google.protobuf.FieldMask
-	2,  // 16: memos.api.v2.UpdateMemoResponse.memo:type_name -> memos.api.v2.Memo
-	34, // 17: memos.api.v2.SetMemoResourcesRequest.resources:type_name -> memos.api.v2.Resource
-	34, // 18: memos.api.v2.ListMemoResourcesResponse.resources:type_name -> memos.api.v2.Resource
-	35, // 19: memos.api.v2.SetMemoRelationsRequest.relations:type_name -> memos.api.v2.MemoRelation
-	35, // 20: memos.api.v2.ListMemoRelationsResponse.relations:type_name -> memos.api.v2.MemoRelation
-	3,  // 21: memos.api.v2.CreateMemoCommentRequest.create:type_name -> memos.api.v2.CreateMemoRequest
-	2,  // 22: memos.api.v2.CreateMemoCommentResponse.memo:type_name -> memos.api.v2.Memo
-	2,  // 23: memos.api.v2.ListMemoCommentsResponse.memos:type_name -> memos.api.v2.Memo
-	31, // 24: memos.api.v2.GetUserMemosStatsResponse.stats:type_name -> memos.api.v2.GetUserMemosStatsResponse.StatsEntry
-	3,  // 25: memos.api.v2.MemoService.CreateMemo:input_type -> memos.api.v2.CreateMemoRequest
-	5,  // 26: memos.api.v2.MemoService.ListMemos:input_type -> memos.api.v2.ListMemosRequest
-	7,  // 27: memos.api.v2.MemoService.GetMemo:input_type -> memos.api.v2.GetMemoRequest
-	9,  // 28: memos.api.v2.MemoService.GetMemoByName:input_type -> memos.api.v2.GetMemoByNameRequest
-	11, // 29: memos.api.v2.MemoService.UpdateMemo:input_type -> memos.api.v2.UpdateMemoRequest
-	13, // 30: memos.api.v2.MemoService.DeleteMemo:input_type -> memos.api.v2.DeleteMemoRequest
-	15, // 31: memos.api.v2.MemoService.SetMemoResources:input_type -> memos.api.v2.SetMemoResourcesRequest
-	17, // 32: memos.api.v2.MemoService.ListMemoResources:input_type -> memos.api.v2.ListMemoResourcesRequest
-	19, // 33: memos.api.v2.MemoService.SetMemoRelations:input_type -> memos.api.v2.SetMemoRelationsRequest
-	21, // 34: memos.api.v2.MemoService.ListMemoRelations:input_type -> memos.api.v2.ListMemoRelationsRequest
-	23, // 35: memos.api.v2.MemoService.CreateMemoComment:input_type -> memos.api.v2.CreateMemoCommentRequest
-	25, // 36: memos.api.v2.MemoService.ListMemoComments:input_type -> memos.api.v2.ListMemoCommentsRequest
-	29, // 37: memos.api.v2.MemoService.ExportMemos:input_type -> memos.api.v2.ExportMemosRequest
-	27, // 38: memos.api.v2.MemoService.GetUserMemosStats:input_type -> memos.api.v2.GetUserMemosStatsRequest
-	4,  // 39: memos.api.v2.MemoService.CreateMemo:output_type -> memos.api.v2.CreateMemoResponse
-	6,  // 40: memos.api.v2.MemoService.ListMemos:output_type -> memos.api.v2.ListMemosResponse
-	8,  // 41: memos.api.v2.MemoService.GetMemo:output_type -> memos.api.v2.GetMemoResponse
-	10, // 42: memos.api.v2.MemoService.GetMemoByName:output_type -> memos.api.v2.GetMemoByNameResponse
-	12, // 43: memos.api.v2.MemoService.UpdateMemo:output_type -> memos.api.v2.UpdateMemoResponse
-	14, // 44: memos.api.v2.MemoService.DeleteMemo:output_type -> memos.api.v2.DeleteMemoResponse
-	16, // 45: memos.api.v2.MemoService.SetMemoResources:output_type -> memos.api.v2.SetMemoResourcesResponse
-	18, // 46: memos.api.v2.MemoService.ListMemoResources:output_type -> memos.api.v2.ListMemoResourcesResponse
-	20, // 47: memos.api.v2.MemoService.SetMemoRelations:output_type -> memos.api.v2.SetMemoRelationsResponse
-	22, // 48: memos.api.v2.MemoService.ListMemoRelations:output_type -> memos.api.v2.ListMemoRelationsResponse
-	24, // 49: memos.api.v2.MemoService.CreateMemoComment:output_type -> memos.api.v2.CreateMemoCommentResponse
-	26, // 50: memos.api.v2.MemoService.ListMemoComments:output_type -> memos.api.v2.ListMemoCommentsResponse
-	30, // 51: memos.api.v2.MemoService.ExportMemos:output_type -> memos.api.v2.ExportMemosResponse
-	28, // 52: memos.api.v2.MemoService.GetUserMemosStats:output_type -> memos.api.v2.GetUserMemosStatsResponse
-	39, // [39:53] is the sub-list for method output_type
-	25, // [25:39] is the sub-list for method input_type
-	25, // [25:25] is the sub-list for extension type_name
-	25, // [25:25] is the sub-list for extension extendee
-	0,  // [0:25] is the sub-list for field type_name
+	1,  // 8: memos.api.v2.MemoWithLocation.location:type_name -> memos.api.v2.MemoLocation
+	0,  // 9: memos.api.v2.CreateMemoRequest.visibility:type_name -> memos.api.v2.Visibility
+	1,  // 10: memos.api.v2.CreateMemoRequest.location:type_name -> memos.api.v2.MemoLocation
+	2,  // 11: memos.api.v2.CreateMemoResponse.memo:type_name -> memos.api.v2.Memo
+	2,  // 12: memos.api.v2.ListMemosResponse.memos:type_name -> memos.api.v2.Memo
+	2,  // 13: memos.api.v2.GetMemoResponse.memo:type_name -> memos.api.v2.Memo
+	2,  // 14: memos.api.v2.GetMemoByNameResponse.memo:type_name -> memos.api.v2.Memo
+	3,  // 15: memos.api.v2.GetMemosWithLocationResponse.memos:type_name -> memos.api.v2.MemoWithLocation
+	2,  // 16: memos.api.v2.UpdateMemoRequest.memo:type_name -> memos.api.v2.Memo
+	39, // 17: memos.api.v2.UpdateMemoRequest.update_mask:type_name -> google.protobuf.FieldMask
+	2,  // 18: memos.api.v2.UpdateMemoResponse.memo:type_name -> memos.api.v2.Memo
+	37, // 19: memos.api.v2.SetMemoResourcesRequest.resources:type_name -> memos.api.v2.Resource
+	37, // 20: memos.api.v2.ListMemoResourcesResponse.resources:type_name -> memos.api.v2.Resource
+	38, // 21: memos.api.v2.SetMemoRelationsRequest.relations:type_name -> memos.api.v2.MemoRelation
+	38, // 22: memos.api.v2.ListMemoRelationsResponse.relations:type_name -> memos.api.v2.MemoRelation
+	4,  // 23: memos.api.v2.CreateMemoCommentRequest.create:type_name -> memos.api.v2.CreateMemoRequest
+	2,  // 24: memos.api.v2.CreateMemoCommentResponse.memo:type_name -> memos.api.v2.Memo
+	2,  // 25: memos.api.v2.ListMemoCommentsResponse.memos:type_name -> memos.api.v2.Memo
+	34, // 26: memos.api.v2.GetUserMemosStatsResponse.stats:type_name -> memos.api.v2.GetUserMemosStatsResponse.StatsEntry
+	4,  // 27: memos.api.v2.MemoService.CreateMemo:input_type -> memos.api.v2.CreateMemoRequest
+	6,  // 28: memos.api.v2.MemoService.ListMemos:input_type -> memos.api.v2.ListMemosRequest
+	8,  // 29: memos.api.v2.MemoService.GetMemo:input_type -> memos.api.v2.GetMemoRequest
+	10, // 30: memos.api.v2.MemoService.GetMemoByName:input_type -> memos.api.v2.GetMemoByNameRequest
+	12, // 31: memos.api.v2.MemoService.GetMemosWithLocation:input_type -> memos.api.v2.GetMemosWithLocationRequest
+	14, // 32: memos.api.v2.MemoService.UpdateMemo:input_type -> memos.api.v2.UpdateMemoRequest
+	16, // 33: memos.api.v2.MemoService.DeleteMemo:input_type -> memos.api.v2.DeleteMemoRequest
+	18, // 34: memos.api.v2.MemoService.SetMemoResources:input_type -> memos.api.v2.SetMemoResourcesRequest
+	20, // 35: memos.api.v2.MemoService.ListMemoResources:input_type -> memos.api.v2.ListMemoResourcesRequest
+	22, // 36: memos.api.v2.MemoService.SetMemoRelations:input_type -> memos.api.v2.SetMemoRelationsRequest
+	24, // 37: memos.api.v2.MemoService.ListMemoRelations:input_type -> memos.api.v2.ListMemoRelationsRequest
+	26, // 38: memos.api.v2.MemoService.CreateMemoComment:input_type -> memos.api.v2.CreateMemoCommentRequest
+	28, // 39: memos.api.v2.MemoService.ListMemoComments:input_type -> memos.api.v2.ListMemoCommentsRequest
+	32, // 40: memos.api.v2.MemoService.ExportMemos:input_type -> memos.api.v2.ExportMemosRequest
+	30, // 41: memos.api.v2.MemoService.GetUserMemosStats:input_type -> memos.api.v2.GetUserMemosStatsRequest
+	5,  // 42: memos.api.v2.MemoService.CreateMemo:output_type -> memos.api.v2.CreateMemoResponse
+	7,  // 43: memos.api.v2.MemoService.ListMemos:output_type -> memos.api.v2.ListMemosResponse
+	9,  // 44: memos.api.v2.MemoService.GetMemo:output_type -> memos.api.v2.GetMemoResponse
+	11, // 45: memos.api.v2.MemoService.GetMemoByName:output_type -> memos.api.v2.GetMemoByNameResponse
+	13, // 46: memos.api.v2.MemoService.GetMemosWithLocation:output_type -> memos.api.v2.GetMemosWithLocationResponse
+	15, // 47: memos.api.v2.MemoService.UpdateMemo:output_type -> memos.api.v2.UpdateMemoResponse
+	17, // 48: memos.api.v2.MemoService.DeleteMemo:output_type -> memos.api.v2.DeleteMemoResponse
+	19, // 49: memos.api.v2.MemoService.SetMemoResources:output_type -> memos.api.v2.SetMemoResourcesResponse
+	21, // 50: memos.api.v2.MemoService.ListMemoResources:output_type -> memos.api.v2.ListMemoResourcesResponse
+	23, // 51: memos.api.v2.MemoService.SetMemoRelations:output_type -> memos.api.v2.SetMemoRelationsResponse
+	25, // 52: memos.api.v2.MemoService.ListMemoRelations:output_type -> memos.api.v2.ListMemoRelationsResponse
+	27, // 53: memos.api.v2.MemoService.CreateMemoComment:output_type -> memos.api.v2.CreateMemoCommentResponse
+	29, // 54: memos.api.v2.MemoService.ListMemoComments:output_type -> memos.api.v2.ListMemoCommentsResponse
+	33, // 55: memos.api.v2.MemoService.ExportMemos:output_type -> memos.api.v2.ExportMemosResponse
+	31, // 56: memos.api.v2.MemoService.GetUserMemosStats:output_type -> memos.api.v2.GetUserMemosStatsResponse
+	42, // [42:57] is the sub-list for method output_type
+	27, // [27:42] is the sub-list for method input_type
+	27, // [27:27] is the sub-list for extension type_name
+	27, // [27:27] is the sub-list for extension extendee
+	0,  // [0:27] is the sub-list for field type_name
 }
 
 func init() { file_api_v2_memo_service_proto_init() }
@@ -2173,7 +2352,7 @@ func file_api_v2_memo_service_proto_init() {
 			}
 		}
 		file_api_v2_memo_service_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CreateMemoRequest); i {
+			switch v := v.(*MemoWithLocation); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2185,7 +2364,7 @@ func file_api_v2_memo_service_proto_init() {
 			}
 		}
 		file_api_v2_memo_service_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CreateMemoResponse); i {
+			switch v := v.(*CreateMemoRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2197,7 +2376,7 @@ func file_api_v2_memo_service_proto_init() {
 			}
 		}
 		file_api_v2_memo_service_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ListMemosRequest); i {
+			switch v := v.(*CreateMemoResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2209,7 +2388,7 @@ func file_api_v2_memo_service_proto_init() {
 			}
 		}
 		file_api_v2_memo_service_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ListMemosResponse); i {
+			switch v := v.(*ListMemosRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2221,7 +2400,7 @@ func file_api_v2_memo_service_proto_init() {
 			}
 		}
 		file_api_v2_memo_service_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetMemoRequest); i {
+			switch v := v.(*ListMemosResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2233,7 +2412,7 @@ func file_api_v2_memo_service_proto_init() {
 			}
 		}
 		file_api_v2_memo_service_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetMemoResponse); i {
+			switch v := v.(*GetMemoRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2245,7 +2424,7 @@ func file_api_v2_memo_service_proto_init() {
 			}
 		}
 		file_api_v2_memo_service_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetMemoByNameRequest); i {
+			switch v := v.(*GetMemoResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2257,7 +2436,7 @@ func file_api_v2_memo_service_proto_init() {
 			}
 		}
 		file_api_v2_memo_service_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetMemoByNameResponse); i {
+			switch v := v.(*GetMemoByNameRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2269,7 +2448,7 @@ func file_api_v2_memo_service_proto_init() {
 			}
 		}
 		file_api_v2_memo_service_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*UpdateMemoRequest); i {
+			switch v := v.(*GetMemoByNameResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2281,7 +2460,7 @@ func file_api_v2_memo_service_proto_init() {
 			}
 		}
 		file_api_v2_memo_service_proto_msgTypes[11].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*UpdateMemoResponse); i {
+			switch v := v.(*GetMemosWithLocationRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2293,7 +2472,7 @@ func file_api_v2_memo_service_proto_init() {
 			}
 		}
 		file_api_v2_memo_service_proto_msgTypes[12].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*DeleteMemoRequest); i {
+			switch v := v.(*GetMemosWithLocationResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2305,7 +2484,7 @@ func file_api_v2_memo_service_proto_init() {
 			}
 		}
 		file_api_v2_memo_service_proto_msgTypes[13].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*DeleteMemoResponse); i {
+			switch v := v.(*UpdateMemoRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2317,7 +2496,7 @@ func file_api_v2_memo_service_proto_init() {
 			}
 		}
 		file_api_v2_memo_service_proto_msgTypes[14].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SetMemoResourcesRequest); i {
+			switch v := v.(*UpdateMemoResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2329,7 +2508,7 @@ func file_api_v2_memo_service_proto_init() {
 			}
 		}
 		file_api_v2_memo_service_proto_msgTypes[15].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SetMemoResourcesResponse); i {
+			switch v := v.(*DeleteMemoRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2341,7 +2520,7 @@ func file_api_v2_memo_service_proto_init() {
 			}
 		}
 		file_api_v2_memo_service_proto_msgTypes[16].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ListMemoResourcesRequest); i {
+			switch v := v.(*DeleteMemoResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2353,7 +2532,7 @@ func file_api_v2_memo_service_proto_init() {
 			}
 		}
 		file_api_v2_memo_service_proto_msgTypes[17].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ListMemoResourcesResponse); i {
+			switch v := v.(*SetMemoResourcesRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2365,7 +2544,7 @@ func file_api_v2_memo_service_proto_init() {
 			}
 		}
 		file_api_v2_memo_service_proto_msgTypes[18].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SetMemoRelationsRequest); i {
+			switch v := v.(*SetMemoResourcesResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2377,7 +2556,7 @@ func file_api_v2_memo_service_proto_init() {
 			}
 		}
 		file_api_v2_memo_service_proto_msgTypes[19].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SetMemoRelationsResponse); i {
+			switch v := v.(*ListMemoResourcesRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2389,7 +2568,7 @@ func file_api_v2_memo_service_proto_init() {
 			}
 		}
 		file_api_v2_memo_service_proto_msgTypes[20].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ListMemoRelationsRequest); i {
+			switch v := v.(*ListMemoResourcesResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2401,7 +2580,7 @@ func file_api_v2_memo_service_proto_init() {
 			}
 		}
 		file_api_v2_memo_service_proto_msgTypes[21].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ListMemoRelationsResponse); i {
+			switch v := v.(*SetMemoRelationsRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2413,7 +2592,7 @@ func file_api_v2_memo_service_proto_init() {
 			}
 		}
 		file_api_v2_memo_service_proto_msgTypes[22].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CreateMemoCommentRequest); i {
+			switch v := v.(*SetMemoRelationsResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2425,7 +2604,7 @@ func file_api_v2_memo_service_proto_init() {
 			}
 		}
 		file_api_v2_memo_service_proto_msgTypes[23].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CreateMemoCommentResponse); i {
+			switch v := v.(*ListMemoRelationsRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2437,7 +2616,7 @@ func file_api_v2_memo_service_proto_init() {
 			}
 		}
 		file_api_v2_memo_service_proto_msgTypes[24].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ListMemoCommentsRequest); i {
+			switch v := v.(*ListMemoRelationsResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2449,7 +2628,7 @@ func file_api_v2_memo_service_proto_init() {
 			}
 		}
 		file_api_v2_memo_service_proto_msgTypes[25].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ListMemoCommentsResponse); i {
+			switch v := v.(*CreateMemoCommentRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2461,7 +2640,7 @@ func file_api_v2_memo_service_proto_init() {
 			}
 		}
 		file_api_v2_memo_service_proto_msgTypes[26].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetUserMemosStatsRequest); i {
+			switch v := v.(*CreateMemoCommentResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2473,7 +2652,7 @@ func file_api_v2_memo_service_proto_init() {
 			}
 		}
 		file_api_v2_memo_service_proto_msgTypes[27].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetUserMemosStatsResponse); i {
+			switch v := v.(*ListMemoCommentsRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2485,7 +2664,7 @@ func file_api_v2_memo_service_proto_init() {
 			}
 		}
 		file_api_v2_memo_service_proto_msgTypes[28].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ExportMemosRequest); i {
+			switch v := v.(*ListMemoCommentsResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2497,6 +2676,42 @@ func file_api_v2_memo_service_proto_init() {
 			}
 		}
 		file_api_v2_memo_service_proto_msgTypes[29].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetUserMemosStatsRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_api_v2_memo_service_proto_msgTypes[30].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetUserMemosStatsResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_api_v2_memo_service_proto_msgTypes[31].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*ExportMemosRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_api_v2_memo_service_proto_msgTypes[32].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*ExportMemosResponse); i {
 			case 0:
 				return &v.state
@@ -2516,7 +2731,7 @@ func file_api_v2_memo_service_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_api_v2_memo_service_proto_rawDesc,
 			NumEnums:      1,
-			NumMessages:   31,
+			NumMessages:   34,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

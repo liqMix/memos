@@ -162,6 +162,9 @@
   "timeline": {
     "title": "Timeline"
   },
+  "map": {
+    "title": "Map"
+  },
   "setting": {
     "my-account": "My Account",
     "preference": "Preferences",
