@@ -19,21 +19,21 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	MemoService_CreateMemo_FullMethodName           = "/memos.api.v2.MemoService/CreateMemo"
-	MemoService_ListMemos_FullMethodName            = "/memos.api.v2.MemoService/ListMemos"
-	MemoService_GetMemo_FullMethodName              = "/memos.api.v2.MemoService/GetMemo"
-	MemoService_GetMemoByName_FullMethodName        = "/memos.api.v2.MemoService/GetMemoByName"
-	MemoService_GetMemosWithLocation_FullMethodName = "/memos.api.v2.MemoService/GetMemosWithLocation"
-	MemoService_UpdateMemo_FullMethodName           = "/memos.api.v2.MemoService/UpdateMemo"
-	MemoService_DeleteMemo_FullMethodName           = "/memos.api.v2.MemoService/DeleteMemo"
-	MemoService_SetMemoResources_FullMethodName     = "/memos.api.v2.MemoService/SetMemoResources"
-	MemoService_ListMemoResources_FullMethodName    = "/memos.api.v2.MemoService/ListMemoResources"
-	MemoService_SetMemoRelations_FullMethodName     = "/memos.api.v2.MemoService/SetMemoRelations"
-	MemoService_ListMemoRelations_FullMethodName    = "/memos.api.v2.MemoService/ListMemoRelations"
-	MemoService_CreateMemoComment_FullMethodName    = "/memos.api.v2.MemoService/CreateMemoComment"
-	MemoService_ListMemoComments_FullMethodName     = "/memos.api.v2.MemoService/ListMemoComments"
-	MemoService_ExportMemos_FullMethodName          = "/memos.api.v2.MemoService/ExportMemos"
-	MemoService_GetUserMemosStats_FullMethodName    = "/memos.api.v2.MemoService/GetUserMemosStats"
+	MemoService_CreateMemo_FullMethodName        = "/memos.api.v2.MemoService/CreateMemo"
+	MemoService_ListMemos_FullMethodName         = "/memos.api.v2.MemoService/ListMemos"
+	MemoService_GetMemo_FullMethodName           = "/memos.api.v2.MemoService/GetMemo"
+	MemoService_GetMemoByName_FullMethodName     = "/memos.api.v2.MemoService/GetMemoByName"
+	MemoService_GetMapMemos_FullMethodName       = "/memos.api.v2.MemoService/GetMapMemos"
+	MemoService_UpdateMemo_FullMethodName        = "/memos.api.v2.MemoService/UpdateMemo"
+	MemoService_DeleteMemo_FullMethodName        = "/memos.api.v2.MemoService/DeleteMemo"
+	MemoService_SetMemoResources_FullMethodName  = "/memos.api.v2.MemoService/SetMemoResources"
+	MemoService_ListMemoResources_FullMethodName = "/memos.api.v2.MemoService/ListMemoResources"
+	MemoService_SetMemoRelations_FullMethodName  = "/memos.api.v2.MemoService/SetMemoRelations"
+	MemoService_ListMemoRelations_FullMethodName = "/memos.api.v2.MemoService/ListMemoRelations"
+	MemoService_CreateMemoComment_FullMethodName = "/memos.api.v2.MemoService/CreateMemoComment"
+	MemoService_ListMemoComments_FullMethodName  = "/memos.api.v2.MemoService/ListMemoComments"
+	MemoService_ExportMemos_FullMethodName       = "/memos.api.v2.MemoService/ExportMemos"
+	MemoService_GetUserMemosStats_FullMethodName = "/memos.api.v2.MemoService/GetUserMemosStats"
 )
 
 // MemoServiceClient is the client API for MemoService service.
@@ -48,8 +48,8 @@ type MemoServiceClient interface {
 	GetMemo(ctx context.Context, in *GetMemoRequest, opts ...grpc.CallOption) (*GetMemoResponse, error)
 	// GetMemoByName gets a memo by name.
 	GetMemoByName(ctx context.Context, in *GetMemoByNameRequest, opts ...grpc.CallOption) (*GetMemoByNameResponse, error)
-	// GetMemosWithLocation gets all memos that have locations defined.
-	GetMemosWithLocation(ctx context.Context, in *GetMemosWithLocationRequest, opts ...grpc.CallOption) (*GetMemosWithLocationResponse, error)
+	// GetMapMemos gets all memos that have locations defined.
+	GetMapMemos(ctx context.Context, in *GetMapMemosRequest, opts ...grpc.CallOption) (*GetMapMemosResponse, error)
 	// UpdateMemo updates a memo.
 	UpdateMemo(ctx context.Context, in *UpdateMemoRequest, opts ...grpc.CallOption) (*UpdateMemoResponse, error)
 	// DeleteMemo deletes a memo by id.
@@ -116,9 +116,9 @@ func (c *memoServiceClient) GetMemoByName(ctx context.Context, in *GetMemoByName
 	return out, nil
 }
 
-func (c *memoServiceClient) GetMemosWithLocation(ctx context.Context, in *GetMemosWithLocationRequest, opts ...grpc.CallOption) (*GetMemosWithLocationResponse, error) {
-	out := new(GetMemosWithLocationResponse)
-	err := c.cc.Invoke(ctx, MemoService_GetMemosWithLocation_FullMethodName, in, out, opts...)
+func (c *memoServiceClient) GetMapMemos(ctx context.Context, in *GetMapMemosRequest, opts ...grpc.CallOption) (*GetMapMemosResponse, error) {
+	out := new(GetMapMemosResponse)
+	err := c.cc.Invoke(ctx, MemoService_GetMapMemos_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -227,8 +227,8 @@ type MemoServiceServer interface {
 	GetMemo(context.Context, *GetMemoRequest) (*GetMemoResponse, error)
 	// GetMemoByName gets a memo by name.
 	GetMemoByName(context.Context, *GetMemoByNameRequest) (*GetMemoByNameResponse, error)
-	// GetMemosWithLocation gets all memos that have locations defined.
-	GetMemosWithLocation(context.Context, *GetMemosWithLocationRequest) (*GetMemosWithLocationResponse, error)
+	// GetMapMemos gets all memos that have locations defined.
+	GetMapMemos(context.Context, *GetMapMemosRequest) (*GetMapMemosResponse, error)
 	// UpdateMemo updates a memo.
 	UpdateMemo(context.Context, *UpdateMemoRequest) (*UpdateMemoResponse, error)
 	// DeleteMemo deletes a memo by id.
@@ -268,8 +268,8 @@ func (UnimplementedMemoServiceServer) GetMemo(context.Context, *GetMemoRequest) 
 func (UnimplementedMemoServiceServer) GetMemoByName(context.Context, *GetMemoByNameRequest) (*GetMemoByNameResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetMemoByName not implemented")
 }
-func (UnimplementedMemoServiceServer) GetMemosWithLocation(context.Context, *GetMemosWithLocationRequest) (*GetMemosWithLocationResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetMemosWithLocation not implemented")
+func (UnimplementedMemoServiceServer) GetMapMemos(context.Context, *GetMapMemosRequest) (*GetMapMemosResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetMapMemos not implemented")
 }
 func (UnimplementedMemoServiceServer) UpdateMemo(context.Context, *UpdateMemoRequest) (*UpdateMemoResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateMemo not implemented")
@@ -386,20 +386,20 @@ func _MemoService_GetMemoByName_Handler(srv interface{}, ctx context.Context, de
 	return interceptor(ctx, in, info, handler)
 }
 
-func _MemoService_GetMemosWithLocation_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetMemosWithLocationRequest)
+func _MemoService_GetMapMemos_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetMapMemosRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MemoServiceServer).GetMemosWithLocation(ctx, in)
+		return srv.(MemoServiceServer).GetMapMemos(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: MemoService_GetMemosWithLocation_FullMethodName,
+		FullMethod: MemoService_GetMapMemos_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MemoServiceServer).GetMemosWithLocation(ctx, req.(*GetMemosWithLocationRequest))
+		return srv.(MemoServiceServer).GetMapMemos(ctx, req.(*GetMapMemosRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -608,8 +608,8 @@ var MemoService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _MemoService_GetMemoByName_Handler,
 		},
 		{
-			MethodName: "GetMemosWithLocation",
-			Handler:    _MemoService_GetMemosWithLocation_Handler,
+			MethodName: "GetMapMemos",
+			Handler:    _MemoService_GetMapMemos_Handler,
 		},
 		{
 			MethodName: "UpdateMemo",

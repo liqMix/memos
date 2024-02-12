@@ -106,12 +106,12 @@
     - [DeleteMemoResponse](#memos-api-v2-DeleteMemoResponse)
     - [ExportMemosRequest](#memos-api-v2-ExportMemosRequest)
     - [ExportMemosResponse](#memos-api-v2-ExportMemosResponse)
+    - [GetMapMemosRequest](#memos-api-v2-GetMapMemosRequest)
+    - [GetMapMemosResponse](#memos-api-v2-GetMapMemosResponse)
     - [GetMemoByNameRequest](#memos-api-v2-GetMemoByNameRequest)
     - [GetMemoByNameResponse](#memos-api-v2-GetMemoByNameResponse)
     - [GetMemoRequest](#memos-api-v2-GetMemoRequest)
     - [GetMemoResponse](#memos-api-v2-GetMemoResponse)
-    - [GetMemosWithLocationRequest](#memos-api-v2-GetMemosWithLocationRequest)
-    - [GetMemosWithLocationResponse](#memos-api-v2-GetMemosWithLocationResponse)
     - [GetUserMemosStatsRequest](#memos-api-v2-GetUserMemosStatsRequest)
     - [GetUserMemosStatsResponse](#memos-api-v2-GetUserMemosStatsResponse)
     - [GetUserMemosStatsResponse.StatsEntry](#memos-api-v2-GetUserMemosStatsResponse-StatsEntry)
@@ -123,9 +123,9 @@
     - [ListMemoResourcesResponse](#memos-api-v2-ListMemoResourcesResponse)
     - [ListMemosRequest](#memos-api-v2-ListMemosRequest)
     - [ListMemosResponse](#memos-api-v2-ListMemosResponse)
+    - [MapMemo](#memos-api-v2-MapMemo)
     - [Memo](#memos-api-v2-Memo)
     - [MemoLocation](#memos-api-v2-MemoLocation)
-    - [MemoWithLocation](#memos-api-v2-MemoWithLocation)
     - [SetMemoRelationsRequest](#memos-api-v2-SetMemoRelationsRequest)
     - [SetMemoRelationsResponse](#memos-api-v2-SetMemoRelationsResponse)
     - [SetMemoResourcesRequest](#memos-api-v2-SetMemoResourcesRequest)
@@ -1480,6 +1480,31 @@ Used internally for obfuscating the page token.
 
 
 
+<a name="memos-api-v2-GetMapMemosRequest"></a>
+
+### GetMapMemosRequest
+
+
+
+
+
+
+
+<a name="memos-api-v2-GetMapMemosResponse"></a>
+
+### GetMapMemosResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| memos | [MapMemo](#memos-api-v2-MapMemo) | repeated |  |
+
+
+
+
+
+
 <a name="memos-api-v2-GetMemoByNameRequest"></a>
 
 ### GetMemoByNameRequest
@@ -1534,31 +1559,6 @@ Used internally for obfuscating the page token.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | memo | [Memo](#memos-api-v2-Memo) |  |  |
-
-
-
-
-
-
-<a name="memos-api-v2-GetMemosWithLocationRequest"></a>
-
-### GetMemosWithLocationRequest
-
-
-
-
-
-
-
-<a name="memos-api-v2-GetMemosWithLocationResponse"></a>
-
-### GetMemosWithLocationResponse
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| memos | [MemoWithLocation](#memos-api-v2-MemoWithLocation) | repeated |  |
 
 
 
@@ -1736,6 +1736,28 @@ Used internally for obfuscating the page token.
 
 
 
+<a name="memos-api-v2-MapMemo"></a>
+
+### MapMemo
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| id | [int32](#int32) |  |  |
+| name | [string](#string) |  |  |
+| creator_id | [int32](#int32) |  |  |
+| creator_name | [string](#string) |  |  |
+| avatar_url | [string](#string) |  |  |
+| visibility | [Visibility](#memos-api-v2-Visibility) |  |  |
+| create_time | [google.protobuf.Timestamp](#google-protobuf-Timestamp) |  |  |
+| location | [MemoLocation](#memos-api-v2-MemoLocation) |  |  |
+
+
+
+
+
+
 <a name="memos-api-v2-Memo"></a>
 
 ### Memo
@@ -1773,26 +1795,9 @@ Used internally for obfuscating the page token.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
+| name | [string](#string) |  |  |
 | latitude | [float](#float) |  |  |
 | longitude | [float](#float) |  |  |
-| name | [string](#string) |  |  |
-
-
-
-
-
-
-<a name="memos-api-v2-MemoWithLocation"></a>
-
-### MemoWithLocation
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| id | [int32](#int32) |  |  |
-| creator_id | [int32](#int32) |  |  |
-| location | [MemoLocation](#memos-api-v2-MemoLocation) |  |  |
 
 
 
@@ -1913,7 +1918,7 @@ Used internally for obfuscating the page token.
 | ListMemos | [ListMemosRequest](#memos-api-v2-ListMemosRequest) | [ListMemosResponse](#memos-api-v2-ListMemosResponse) | ListMemos lists memos with pagination and filter. |
 | GetMemo | [GetMemoRequest](#memos-api-v2-GetMemoRequest) | [GetMemoResponse](#memos-api-v2-GetMemoResponse) | GetMemo gets a memo by id. |
 | GetMemoByName | [GetMemoByNameRequest](#memos-api-v2-GetMemoByNameRequest) | [GetMemoByNameResponse](#memos-api-v2-GetMemoByNameResponse) | GetMemoByName gets a memo by name. |
-| GetMemosWithLocation | [GetMemosWithLocationRequest](#memos-api-v2-GetMemosWithLocationRequest) | [GetMemosWithLocationResponse](#memos-api-v2-GetMemosWithLocationResponse) | GetMemosWithLocation gets all memos that have locations defined. |
+| GetMapMemos | [GetMapMemosRequest](#memos-api-v2-GetMapMemosRequest) | [GetMapMemosResponse](#memos-api-v2-GetMapMemosResponse) | GetMapMemos gets all memos that have locations defined. |
 | UpdateMemo | [UpdateMemoRequest](#memos-api-v2-UpdateMemoRequest) | [UpdateMemoResponse](#memos-api-v2-UpdateMemoResponse) | UpdateMemo updates a memo. |
 | DeleteMemo | [DeleteMemoRequest](#memos-api-v2-DeleteMemoRequest) | [DeleteMemoResponse](#memos-api-v2-DeleteMemoResponse) | DeleteMemo deletes a memo by id. |
 | SetMemoResources | [SetMemoResourcesRequest](#memos-api-v2-SetMemoResourcesRequest) | [SetMemoResourcesResponse](#memos-api-v2-SetMemoResourcesResponse) | SetMemoResources sets resources for a memo. |

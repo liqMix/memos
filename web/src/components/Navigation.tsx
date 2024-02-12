@@ -122,7 +122,17 @@ const Navigation = (props: Props) => {
   };
 
   const navLinks: NavLinkItem[] = user
-    ? [homeNavLink, timelineNavLink, mapNavLink, resourcesNavLink, exploreNavLink, profileNavLink, inboxNavLink, archivedNavLink, settingNavLink]
+    ? [
+        homeNavLink,
+        timelineNavLink,
+        mapNavLink,
+        resourcesNavLink,
+        exploreNavLink,
+        profileNavLink,
+        inboxNavLink,
+        archivedNavLink,
+        settingNavLink,
+      ]
     : [exploreNavLink, signInNavLink, aboutNavLink];
 
   return (

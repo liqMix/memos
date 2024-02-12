@@ -103,8 +103,8 @@ func (d *DB) ListMemos(ctx context.Context, find *store.FindMemo) ([]*store.Memo
 		"IFNULL(`memo_organizer`.`pinned`, 0) AS `pinned`",
 		"`memo_relation`.`related_memo_id` AS `parent_id`",
 		"`memo`.`location_name` AS `location_name`",
-		"`memo`.`location_lat` AS `location_lat`",
-		"`memo`.`location_lon` AS `location_lon`",
+		"`memo`.`location_lat` as `location_lat`",
+		"`memo`.`location_lon` as `location_lon`",
 	}
 	if !find.ExcludeContent {
 		fields = append(fields, "`memo`.`content` AS `content`")
@@ -170,9 +170,38 @@ func (d *DB) GetMemo(ctx context.Context, find *store.FindMemo) (*store.Memo, er
 	return memo, nil
 }
 
-func (d *DB) GetMemosWithLocation(ctx context.Context) ([]*store.MemoWithLocation, error) {
-	query := "SELECT `id`, `creator_id`, `location_name`, `location_lat`, `location_lon` FROM `memo` WHERE `location_lat` IS NOT NULL AND `location_lon` IS NOT NULL AND visibility = \"PUBLIC\""
-	rows, err := d.db.QueryContext(ctx, query)
+func (d *DB) GetMapMemos(ctx context.Context, user *store.User) ([]*store.MapMemo, error) {
+	args := []any{}
+	fields := []string{
+		"`memo`.`id` AS `id`",
+		"`memo`.`resource_name` as `resource_name`",
+		"`memo`.`creator_id` as `creator_id`",
+		"COALESCE(`user`.`nickname`, `user`.`username`) as `creator_name`",
+		"`user`.`avatar_url` as `avatar_url`",
+		"`memo`.`visibility` as `visibility`",
+		"UNIX_TIMESTAMP(`memo`.`created_ts`) as `created_ts`",
+		"`memo`.`location_name` as `location_name`",
+		"`memo`.`location_lat` as `location_lat`",
+		"`memo`.`location_lon` as `location_lon`",
+	}
+	where := []string{
+		"`memo`.`location_name` IS NOT NULL",
+		"`memo`.`location_lat` IS NOT NULL",
+		"`memo`.`location_lon` IS NOT NULL",
+	}
+
+	// If we have a user defined include all visibilites for their memos.
+	if user != nil {
+		where, args = append(
+			where,
+			"(`memo`.`visibility` = \"PUBLIC\" OR `memo`.`creator_id` = ?)",
+		), append(args, user.ID)
+	} else {
+		where = append(where, "`memo`.`visibility` = \"PUBLIC\"")
+	}
+	query := "SELECT " + strings.Join(fields, ", ") + " FROM `memo` LEFT JOIN `user` ON `memo`.`creator_id` = `user`.`id` WHERE " + strings.Join(where, " AND ")
+	fmt.Println(query)
+	rows, err := d.db.QueryContext(ctx, query, args...)
 	fmt.Println(rows)
 	if err != nil {
 		fmt.Println(err)
@@ -180,10 +209,21 @@ func (d *DB) GetMemosWithLocation(ctx context.Context) ([]*store.MemoWithLocatio
 	}
 	defer rows.Close()
 
-	list := make([]*store.MemoWithLocation, 0)
+	list := make([]*store.MapMemo, 0)
 	for rows.Next() {
-		var memo store.MemoWithLocation
-		if err := rows.Scan(&memo.ID, &memo.CreatorID, &memo.LocationName, &memo.LocationLat, &memo.LocationLon); err != nil {
+		var memo store.MapMemo
+		if err := rows.Scan(
+			&memo.ID,
+			&memo.ResourceName,
+			&memo.CreatorID,
+			&memo.CreatorName,
+			&memo.AvatarURL,
+			&memo.Visibility,
+			&memo.CreatedTs,
+			&memo.LocationName,
+			&memo.LocationLat,
+			&memo.LocationLon,
+		); err != nil {
 			return nil, err
 		}
 		list = append(list, &memo)

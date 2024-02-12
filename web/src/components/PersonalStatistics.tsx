@@ -4,7 +4,6 @@ import { useTagStore } from "@/store/module";
 import { useMemoStore } from "@/store/v1";
 import { User } from "@/types/proto/api/v2/user_service";
 import Icon from "./Icon";
-import { useGeolocation } from "react-use";
 
 interface Props {
   user: User;

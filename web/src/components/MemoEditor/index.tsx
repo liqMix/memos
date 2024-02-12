@@ -6,6 +6,7 @@ import useLocalStorage from "react-use/lib/useLocalStorage";
 import { memoServiceClient } from "@/grpcweb";
 import { TAB_SPACE_WIDTH, UNKNOWN_ID } from "@/helpers/consts";
 import { isValidUrl } from "@/helpers/utils";
+import { useGeoLocationWithName } from "@/hooks/useGeoLocationWithName";
 import { useGlobalStore, useResourceStore, useTagStore } from "@/store/module";
 import { useMemoStore, useUserStore } from "@/store/v1";
 import { MemoRelation, MemoRelation_Type } from "@/types/proto/api/v2/memo_relation_service";
@@ -26,8 +27,7 @@ import RelationListView from "./RelationListView";
 import ResourceListView from "./ResourceListView";
 import { handleEditorKeydownWithMarkdownShortcuts, hyperlinkHighlightedText } from "./handlers";
 import { MemoEditorContext } from "./types";
-import LocationLink from "../LocationLink";
-import { useGeoLocationWithName } from "@/hooks/useGeoLocationWithName";
+import LocationInput from "./LocationInput";
 
 interface Props {
   className?: string;
@@ -53,6 +53,7 @@ const MemoEditor = (props: Props) => {
   const { i18n } = useTranslation();
   const t = useTranslate();
   const location = useGeoLocationWithName();
+  const [locationName, setLocationName] = useState<string>("");
   const contentCacheKey = `memo-editor-${cacheKey}`;
   const [contentCache, setContentCache] = useLocalStorage<string>(contentCacheKey, "");
   const {
@@ -117,6 +118,10 @@ const MemoEditor = (props: Props) => {
       });
     }
   }, [memoId]);
+
+  useEffect(() => {
+    setLocationName(location?.name ?? "");
+  }, [location?.name])
 
   const handleKeyDown = (event: React.KeyboardEvent) => {
     if (!editorRef.current) {
@@ -296,12 +301,15 @@ const MemoEditor = (props: Props) => {
           }
         }
       } else {
-        console.log("location", location)
+        console.log("location", location);
         // Create memo or memo comment.
         const request = !parentMemoId
           ? memoStore.createMemo({
               content,
-              location,
+              location: location ? {
+                ...location,
+                name: locationName,
+              } : undefined,
               visibility: state.memoVisibility,
             })
           : memoServiceClient
@@ -309,7 +317,10 @@ const MemoEditor = (props: Props) => {
                 id: parentMemoId,
                 create: {
                   content,
-                  location,
+                  location: {
+                    ...location,
+                    name: locationName,
+                  },
                   visibility: state.memoVisibility,
                 },
               })
@@ -385,7 +396,7 @@ const MemoEditor = (props: Props) => {
         tabIndex={0}
         onKeyDown={handleKeyDown}
         onDrop={handleDropEvent}
-        onFocus={handleEditorFocus}
+        // onFocus={handleEditorFocus}
       >
         <Editor ref={editorRef} {...editorConfig} />
         <ResourceListView resourceList={state.resourceList} setResourceList={handleSetResourceList} />
@@ -421,7 +432,7 @@ const MemoEditor = (props: Props) => {
             </Select>
           </div>
           <div className="shrink-0 flex flex-row justify-end items-center">
-            <LocationLink location={location}/>
+            {location && <LocationInput locationName={locationName} initialLocationName={location.name} onChange={setLocationName} />}
             <Button
               disabled={!allowSave}
               loading={state.isRequesting}

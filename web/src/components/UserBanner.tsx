@@ -6,10 +6,6 @@ import { useGlobalStore } from "@/store/module";
 import { useTranslate } from "@/utils/i18n";
 import Icon from "./Icon";
 import UserAvatar from "./UserAvatar";
-import { useGeolocation } from "react-use";
-import { useEffect, useState } from "react";
-import { resolveLocation } from "@/utils/geolocation";
-import LocationLink from "./LocationLink";
 
 interface Props {
   collapsed?: boolean;
@@ -17,22 +13,12 @@ interface Props {
 
 const UserBanner = (props: Props) => {
   const { collapsed } = props;
-  // const location = useGeolocation();
-  // const [currentLocation, setCurrentLocation] = useState<string>();
   const t = useTranslate();
   const globalStore = useGlobalStore();
   const { systemStatus } = globalStore.state;
   const user = useCurrentUser();
   const title = user ? user.nickname || user.username : systemStatus.customizedProfile.name || "memos";
   const avatarUrl = user ? user.avatarUrl : systemStatus.customizedProfile.logoUrl;
-
-  // useEffect(() => {
-  //   if (!location.loading && location.latitude && location.longitude) {
-  //     resolveLocation(location).then((location) => {
-  //       setCurrentLocation(location);
-  //     });
-  //   }
-  // }, [location]);
 
   const handleSignOut = async () => {
     await authServiceClient.signOut({});
@@ -53,11 +39,6 @@ const UserBanner = (props: Props) => {
             {!collapsed && <span className="ml-2 text-lg font-medium text-slate-800 dark:text-gray-200 shrink truncate">{title}</span>}
           </div>
         </MenuButton>
-        {/* <div>
-            { currentLocation && (
-              <LocationLink location={location} />
-            )}
-        </div> */}
         <Menu placement="bottom-start" size="sm" style={{ zIndex: "9999" }}>
           <MenuItem onClick={handleSignOut}>
             <Icon.LogOut className="w-4 h-auto opacity-60 shrink-0" />

@@ -140,26 +140,30 @@ func (s *APIV2Service) ListMemos(ctx context.Context, request *apiv2pb.ListMemos
 	return response, nil
 }
 
-func (s *APIV2Service) GetMemosWithLocation(ctx context.Context, _ *apiv2pb.GetMemosWithLocationRequest) (*apiv2pb.GetMemosWithLocationResponse, error) {
-	memos, err := s.Store.GetMemosWithLocation(ctx)
+func (s *APIV2Service) GetMapMemos(ctx context.Context, _ *apiv2pb.GetMapMemosRequest) (*apiv2pb.GetMapMemosResponse, error) {
+	user, _ := getCurrentUser(ctx, s.Store)
+	memos, err := s.Store.GetMapMemos(ctx, user)
 	if err != nil {
+		fmt.Print(err)
 		return nil, status.Errorf(codes.Internal, "failed to get memos with location")
 	}
 
-	memoList := []*apiv2pb.MemoWithLocation{}
+	memoList := []*apiv2pb.MapMemo{}
 	for _, memo := range memos {
 		location := convertLocationFromStore(memo.LocationName, memo.LocationLat, memo.LocationLon)
-		memoMessage := &apiv2pb.MemoWithLocation{
-			Id:        int32(memo.ID),
-			CreatorId: int32(memo.CreatorID),
-			Location:  location,
+		memoMessage := &apiv2pb.MapMemo{
+			Id:         int32(memo.ID),
+			Name:       memo.ResourceName,
+			CreatorId:  int32(memo.CreatorID),
+			CreateTime: timestamppb.New(time.Unix(memo.CreatedTs, 0)),
+			Location:   location,
 		}
 		if err != nil {
 			return nil, errors.Wrap(err, "failed to convert memo")
 		}
 		memoList = append(memoList, memoMessage)
 	}
-	response := &apiv2pb.GetMemosWithLocationResponse{
+	response := &apiv2pb.GetMapMemosResponse{
 		Memos: memoList,
 	}
 	return response, nil

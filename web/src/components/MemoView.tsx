@@ -18,6 +18,7 @@ import { convertVisibilityToString } from "@/utils/memo";
 import showChangeMemoCreatedTsDialog from "./ChangeMemoCreatedTsDialog";
 import { showCommonDialog } from "./Dialog/CommonDialog";
 import Icon from "./Icon";
+import MemoLocationLink from "./MemoLocationLink";
 import MemoContent from "./MemoContent";
 import showMemoEditorDialog from "./MemoEditor/MemoEditorDialog";
 import MemoRelationListView from "./MemoRelationListView";
@@ -27,7 +28,6 @@ import showShareMemoDialog from "./ShareMemoDialog";
 import UserAvatar from "./UserAvatar";
 import VisibilityIcon from "./VisibilityIcon";
 import "@/less/memo.less";
-import LocationLink from "./LocationLink";
 
 interface Props {
   memo: Memo;
@@ -192,9 +192,7 @@ const MemoView: React.FC<Props> = (props: Props) => {
           <span className="text-sm text-gray-400 select-none" onClick={handleGotoMemoDetailPage}>
             {displayTime}
           </span>
-          {memo.location && (
-            <LocationLink location={memo?.location} className="ml-2" />
-          )}
+          {memo.location && <MemoLocationLink memo={memo} className="ml-2" />}
           {props.showPinned && memo.pinned && (
             <>
               <Icon.Dot className="w-4 h-auto text-gray-400 dark:text-zinc-400" />

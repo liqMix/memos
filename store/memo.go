@@ -93,9 +93,14 @@ type DeleteMemo struct {
 	ID int32
 }
 
-type MemoWithLocation struct {
+type MapMemo struct {
 	ID           int32
+	ResourceName string
 	CreatorID    int32
+	CreatorName  string
+	AvatarURL    string
+	Visibility   Visibility
+	CreatedTs    int64
 	LocationName string
 	LocationLat  float32
 	LocationLon  float32
@@ -127,8 +132,8 @@ func (s *Store) GetMemo(ctx context.Context, find *FindMemo) (*Memo, error) {
 	return memo, nil
 }
 
-func (s *Store) GetMemosWithLocation(ctx context.Context) ([]*MemoWithLocation, error) {
-	return s.driver.GetMemosWithLocation(ctx)
+func (s *Store) GetMapMemos(ctx context.Context, user *User) ([]*MapMemo, error) {
+	return s.driver.GetMapMemos(ctx, user)
 }
 
 func (s *Store) UpdateMemo(ctx context.Context, update *UpdateMemo) error {
