@@ -120,7 +120,7 @@ const MapMarkers: React.FC<Props> = (props: Props) => {
       return;
     }
     map.setView(mapView.center, DEFAULT_ZOOM);
-    if(mapView.bounds) {
+    if (mapView.bounds) {
       map.fitBounds(mapView.bounds);
     }
   }, [mapView]);
@@ -166,24 +166,40 @@ const MapMarkers: React.FC<Props> = (props: Props) => {
 // Wrapper to provide MapComponent access to leaflet-react map hooks
 const Map: React.FC = () => {
   const selectedMemoName = useParams<{ memoName: string }>().memoName;
-  console.log("selectedMemoName", selectedMemoName)
+  console.log("selectedMemoName", selectedMemoName);
+
+  const sectionRef: React.RefObject<HTMLDivElement> = useRef(null);
+  const mapRef: React.RefObject<typeof MapContainer & { _container: HTMLDivElement }> = useRef(null);
+
+  // It would be nice to use a proper reactive state here for style: height, but for whatever reason I couldn't get it working.
+  useEffect(() => {
+    function updateHeight() {
+      if (sectionRef.current && mapRef.current) {
+        // FIXME: Accessing _container directly like this feels incorrect. Also the ref type is wrong to give access.
+        mapRef.current._container.style.height = `${sectionRef.current.offsetHeight}px`;
+      }
+    }
+    window.addEventListener("resize", updateHeight);
+    updateHeight();
+    return () => window.removeEventListener("resize", updateHeight);
+  }, []);
 
   return (
-    <section className="@container w-full max-w-5xl min-h-full flex flex-col justify-start items-center sm:pt-3 md:pt-6 pb-8">
-    <MobileHeader />
-    <div className="relative w-full h-full flex flex-col justify-start items-start px-4 sm:px-6">
-    {/* <div className=" w-full h-full flex flex-row justify-center items-center"> */}
-    {/* <div className={classNames("w-[calc(100%-15rem)] h-[calc(100%-15rem)]flex flex-row justify-start items-start px-4 sm:px-6 gap-4")}> */}
-        <MapContainer className="w-full h-full" center={DEFAULT_CENTER} zoom={DEFAULT_ZOOM} attributionControl={false}>
-          <TileLayer
-            url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">
-        OpenStreetMap</a> contributors'
-          />
-          <AttributionControl position="bottomright" prefix={false} />
-          <MapMarkers selectedMemoName={selectedMemoName} />;
-        </MapContainer>
-      </div>
+    <section
+      ref={sectionRef}
+      className="@container w-full max-w-5xl max-h-full flex flex-col justify-start items-center sm:pt-3 md:pt-6 pb-8"
+      style={{ height: "100vh" }}
+    >
+      <MobileHeader />
+      <MapContainer ref={mapRef} className="w-full h-full" center={DEFAULT_CENTER} zoom={DEFAULT_ZOOM} attributionControl={false}>
+        <TileLayer
+          url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">
+      OpenStreetMap</a> contributors'
+        />
+        <AttributionControl position="bottomright" prefix={false} />
+        <MapMarkers selectedMemoName={selectedMemoName} />;
+      </MapContainer>
     </section>
   );
 };
