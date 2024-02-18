@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { useGeolocation } from "react-use";
+import useGeolocation from "react-use/lib/useGeolocation";
 import { MemoLocation } from "@/types/proto/api/v2/memo_service";
 import { resolveLocation } from "@/utils/geolocation";
 
