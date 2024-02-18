@@ -133,7 +133,7 @@ const Navigation = (props: Props) => {
         archivedNavLink,
         settingNavLink,
       ]
-    : [exploreNavLink, signInNavLink, aboutNavLink];
+    : [mapNavLink, exploreNavLink, signInNavLink, aboutNavLink];
 
   return (
     <header

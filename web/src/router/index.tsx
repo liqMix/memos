@@ -77,14 +77,6 @@ const router = createBrowserRouter([
             ),
           },
           {
-            path: "map/:memoName?",
-            element: (
-              <AuthStatusProvider>
-                <Map />
-              </AuthStatusProvider>
-            ),
-          },
-          {
             path: "resources",
             element: (
               <AuthStatusProvider>
@@ -115,6 +107,10 @@ const router = createBrowserRouter([
                 <Setting />
               </AuthStatusProvider>
             ),
+          },
+          {
+            path: "map/:memoName?",
+            element: <Map />,
           },
           {
             path: "explore",
