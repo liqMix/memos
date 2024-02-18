@@ -161,9 +161,6 @@ func (s *APIV2Service) GetMapMemos(ctx context.Context, _ *apiv2pb.GetMapMemosRe
 			Location:    location,
 			Content:     memo.Content,
 		}
-		if err != nil {
-			return nil, errors.Wrap(err, "failed to convert memo")
-		}
 		memoList = append(memoList, memoMessage)
 	}
 	response := &apiv2pb.GetMapMemosResponse{
