@@ -159,7 +159,7 @@ message MapMemo {
   string name = 2;
 
   int32 creator_id = 3;
-  
+
   string creator_name = 4;
 
   string avatar_url = 5;
@@ -222,8 +222,7 @@ message GetMemoByNameResponse {
   Memo memo = 1;
 }
 
-message GetMapMemosRequest {
-}
+message GetMapMemosRequest {}
 
 message GetMapMemosResponse {
   repeated MapMemo memos = 1;
