@@ -43,10 +43,6 @@ jobs:
           images: |
             liqMix/memos
             ghcr.io/liqMix/memos
-          flavor: |
-            latest=false
-          tags: |
-            type=raw,value=test
 
       - name: Build and Push
         id: docker_build
