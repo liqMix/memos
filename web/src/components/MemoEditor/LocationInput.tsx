@@ -27,11 +27,15 @@ const LocationInput = (props: Props) => {
   };
 
   return (
-    <div className="bg-inherit mr-4 dark:text-gray-300">
-      {!focused && <span onClick={() => setFocused(true)}>{locationName}</span>}
+    <div className="bg-inherit dark:text-gray-300">
+      {!focused && (
+        <div className="truncate max-w-64" onClick={() => setFocused(true)}>
+          {locationName}
+        </div>
+      )}
       {focused && (
         <Input
-          className="bg-transparent max-w-32"
+          className="bg-transparent max-w-64"
           type="text"
           value={locationName}
           onKeyDown={onKeyDown}

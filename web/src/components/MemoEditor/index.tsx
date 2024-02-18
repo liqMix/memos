@@ -442,17 +442,12 @@ const MemoEditor = (props: Props) => {
               ))}
             </Select>
           </div>
+          {!!initialLocationName && !parentMemoId && (
+            <LocationInput locationName={locationName} initialLocationName={initialLocationName} onChange={setLocationName} />
+          )}
           <div className="shrink-0 flex flex-row justify-end items-center">
-            {!!initialLocationName && (
-              <LocationInput locationName={locationName} initialLocationName={initialLocationName} onChange={setLocationName} />
-            )}
-            <Button
-              disabled={!allowSave}
-              loading={state.isRequesting}
-              endDecorator={<Icon.Send className="w-4 h-auto" />}
-              onClick={handleSaveBtnClick}
-            >
-              {t("editor.save")}
+            <Button disabled={!allowSave} loading={state.isRequesting} onClick={handleSaveBtnClick}>
+              <Icon.Send className="w-4 h-auto" />
             </Button>
           </div>
         </div>
