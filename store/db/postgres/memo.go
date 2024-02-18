@@ -179,11 +179,13 @@ func (d *DB) GetMapMemos(ctx context.Context, user *store.User) ([]*store.MapMem
 		`memo.location_name AS location_name`,
 		`memo.location_lat AS location_lat`,
 		`memo.location_lon AS location_lon`,
+		`memo.content AS content`,
 	}
 	where := []string{
 		"memo.location_name IS NOT NULL",
 		"memo.location_lat IS NOT NULL",
 		"memo.location_lon IS NOT NULL",
+		"memo_relation.type IS NULL",
 	}
 
 	// If we have a user defined include all visibilites for their memos.
@@ -196,7 +198,10 @@ func (d *DB) GetMapMemos(ctx context.Context, user *store.User) ([]*store.MapMem
 		where = append(where, "memo.visibility = 'PUBLIC'")
 	}
 
-	query := `SELECT ` + strings.Join(fields, ", ") + ` FROM memo WHERE ` + strings.Join(where, " AND ")
+	query := "SELECT " + strings.Join(fields, ", ") + " FROM memo " +
+		"LEFT JOIN user ON memo.creator_id = user.id " +
+		"LEFT JOIN memo_relation ON memo.id = memo_relation.memo_id " +
+		"WHERE " + strings.Join(where, " AND ")
 	rows, err := d.db.QueryContext(ctx, query, args)
 	if err != nil {
 		return nil, err
@@ -217,6 +222,7 @@ func (d *DB) GetMapMemos(ctx context.Context, user *store.User) ([]*store.MapMem
 			&memo.LocationName,
 			&memo.LocationLat,
 			&memo.LocationLon,
+			&memo.Content,
 		); err != nil {
 			return nil, err
 		}
@@ -249,6 +255,9 @@ func (d *DB) UpdateMemo(ctx context.Context, update *store.UpdateMemo) error {
 	}
 	if v := update.Visibility; v != nil {
 		set, args = append(set, "visibility = "+placeholder(len(args)+1)), append(args, *v)
+	}
+	if v := update.LocationName; v != nil {
+		set, args = append(set, "location_name = "+placeholder(len(args)+1)), append(args, *v)
 	}
 	stmt := `UPDATE memo SET ` + strings.Join(set, ", ") + ` WHERE id = ` + placeholder(len(args)+1)
 	args = append(args, update.ID)

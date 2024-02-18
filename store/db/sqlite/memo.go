@@ -160,15 +160,17 @@ func (d *DB) GetMapMemos(ctx context.Context, user *store.User) ([]*store.MapMem
 		"COALESCE(`user`.`nickname`, `user`.`username`) as `creator_name`",
 		"`user`.`avatar_url` as `avatar_url`",
 		"`memo`.`visibility` as `visibility`",
-		"UNIX_TIMESTAMP(`memo`.`created_ts`) as `created_ts`",
+		"`memo`.`created_ts` as `created_ts`",
 		"`memo`.`location_name` as `location_name`",
 		"`memo`.`location_lat` as `location_lat`",
 		"`memo`.`location_lon` as `location_lon`",
+		"`memo`.`content` as `content`",
 	}
 	where := []string{
 		"`memo`.`location_name` IS NOT NULL",
 		"`memo`.`location_lat` IS NOT NULL",
 		"`memo`.`location_lon` IS NOT NULL",
+		"`memo_relation`.`type` IS NULL",
 	}
 
 	// If we have a user defined include all visibilites for their memos.
@@ -181,8 +183,12 @@ func (d *DB) GetMapMemos(ctx context.Context, user *store.User) ([]*store.MapMem
 		where = append(where, "`memo`.`visibility` = \"PUBLIC\"")
 	}
 
-	query := "SELECT " + strings.Join(fields, ", ") + " FROM `memo` WHERE " + strings.Join(where, " AND ")
-	rows, err := d.db.QueryContext(ctx, query)
+	query := "SELECT " + strings.Join(fields, ", ") + " FROM `memo` " +
+		"INNER JOIN `user` ON `memo`.`creator_id` = `user`.`id` " +
+		"LEFT JOIN `memo_relation` ON `memo`.`id` = `memo_relation`.`memo_id` " +
+		"WHERE " + strings.Join(where, " AND ")
+
+	rows, err := d.db.QueryContext(ctx, query, args...)
 	if err != nil {
 		return nil, err
 	}
@@ -202,6 +208,7 @@ func (d *DB) GetMapMemos(ctx context.Context, user *store.User) ([]*store.MapMem
 			&memo.LocationName,
 			&memo.LocationLat,
 			&memo.LocationLon,
+			&memo.Content,
 		); err != nil {
 			return nil, err
 		}
@@ -234,6 +241,9 @@ func (d *DB) UpdateMemo(ctx context.Context, update *store.UpdateMemo) error {
 	}
 	if v := update.Visibility; v != nil {
 		set, args = append(set, "`visibility` = ?"), append(args, *v)
+	}
+	if v := update.LocationName; v != nil {
+		set, args = append(set, "`location_name` = ?"), append(args, *v)
 	}
 	args = append(args, update.ID)
 

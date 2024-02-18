@@ -152,11 +152,14 @@ func (s *APIV2Service) GetMapMemos(ctx context.Context, _ *apiv2pb.GetMapMemosRe
 	for _, memo := range memos {
 		location := convertLocationFromStore(memo.LocationName, memo.LocationLat, memo.LocationLon)
 		memoMessage := &apiv2pb.MapMemo{
-			Id:         int32(memo.ID),
-			Name:       memo.ResourceName,
-			CreatorId:  int32(memo.CreatorID),
-			CreateTime: timestamppb.New(time.Unix(memo.CreatedTs, 0)),
-			Location:   location,
+			Id:          int32(memo.ID),
+			Name:        memo.ResourceName,
+			CreatorName: memo.CreatorName,
+			AvatarUrl:   memo.AvatarURL,
+			CreatorId:   int32(memo.CreatorID),
+			CreateTime:  timestamppb.New(time.Unix(memo.CreatedTs, 0)),
+			Location:    location,
+			Content:     memo.Content,
 		}
 		if err != nil {
 			return nil, errors.Wrap(err, "failed to convert memo")
@@ -294,6 +297,8 @@ func (s *APIV2Service) UpdateMemo(ctx context.Context, request *apiv2pb.UpdateMe
 			}); err != nil {
 				return nil, status.Errorf(codes.Internal, "failed to upsert memo organizer")
 			}
+		} else if path == "location" {
+			update.LocationName = &request.Memo.Location.Name
 		}
 	}
 	if update.Content != nil && len(*update.Content) > MaxContentLength {

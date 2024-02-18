@@ -1751,6 +1751,7 @@ Used internally for obfuscating the page token.
 | avatar_url | [string](#string) |  |  |
 | visibility | [Visibility](#memos-api-v2-Visibility) |  |  |
 | create_time | [google.protobuf.Timestamp](#google-protobuf-Timestamp) |  |  |
+| content | [string](#string) |  |  |
 | location | [MemoLocation](#memos-api-v2-MemoLocation) |  |  |
 
 

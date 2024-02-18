@@ -168,7 +168,9 @@ message MapMemo {
 
   google.protobuf.Timestamp create_time = 7;
 
-  MemoLocation location = 8;
+  string content = 8;
+
+  MemoLocation location = 9;
 }
 
 message CreateMemoRequest {

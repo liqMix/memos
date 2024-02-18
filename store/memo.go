@@ -3,7 +3,6 @@ package store
 import (
 	"context"
 	"errors"
-	"fmt"
 
 	"github.com/usememos/memos/internal/util"
 )
@@ -87,6 +86,7 @@ type UpdateMemo struct {
 	RowStatus    *RowStatus
 	Content      *string
 	Visibility   *Visibility
+	LocationName *string
 }
 
 type DeleteMemo struct {
@@ -104,14 +104,13 @@ type MapMemo struct {
 	LocationName string
 	LocationLat  float32
 	LocationLon  float32
+	Content      string
 }
 
 func (s *Store) CreateMemo(ctx context.Context, create *Memo) (*Memo, error) {
 	if !util.ResourceNameMatcher.MatchString(create.ResourceName) {
 		return nil, errors.New("resource name is invalid")
 	}
-	fmt.Println("CreateMemo")
-	fmt.Print(create)
 	return s.driver.CreateMemo(ctx, create)
 }
 

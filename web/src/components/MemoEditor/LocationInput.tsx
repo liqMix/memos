@@ -1,10 +1,10 @@
+import { Input } from "@mui/joy";
 import { useState } from "react";
 
 interface Props {
   locationName: string;
   initialLocationName: string;
   onChange: (locationName: string) => void;
-
 }
 
 const LocationInput = (props: Props) => {
@@ -14,15 +14,31 @@ const LocationInput = (props: Props) => {
   // If the input is empty, reset it to the initial location name.
   const onBlur = () => {
     setFocused(false);
-    if (props.locationName === "") {
+    if (!props.locationName) {
       onChange(initialLocationName);
-    };
+    }
+  };
+
+  const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      setFocused(false);
+      onBlur();
+    }
   };
 
   return (
-    <div className="bg-inherit mr-1 dark:text-gray-300">
+    <div className="bg-inherit mr-4 dark:text-gray-300">
       {!focused && <span onClick={() => setFocused(true)}>{locationName}</span>}
-      {focused && <input className="bg-transparent" type="text" value={locationName} onChange={(e) => onChange(e.target.value)} onBlur={onBlur}/>}
+      {focused && (
+        <Input
+          className="bg-transparent max-w-32"
+          type="text"
+          value={locationName}
+          onKeyDown={onKeyDown}
+          onChange={(e) => onChange(e.target.value)}
+          onBlur={onBlur}
+        />
+      )}
     </div>
   );
 };

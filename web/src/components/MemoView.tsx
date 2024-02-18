@@ -18,9 +18,9 @@ import { convertVisibilityToString } from "@/utils/memo";
 import showChangeMemoCreatedTsDialog from "./ChangeMemoCreatedTsDialog";
 import { showCommonDialog } from "./Dialog/CommonDialog";
 import Icon from "./Icon";
-import MemoLocationLink from "./MemoLocationLink";
 import MemoContent from "./MemoContent";
 import showMemoEditorDialog from "./MemoEditor/MemoEditorDialog";
+import MemoLocationLink from "./MemoLocationLink";
 import MemoRelationListView from "./MemoRelationListView";
 import MemoResourceListView from "./MemoResourceListView";
 import showPreviewImageDialog from "./PreviewImageDialog";
@@ -166,20 +166,19 @@ const MemoView: React.FC<Props> = (props: Props) => {
     }
   }, []);
 
-  console.log({ memo });
   return (
     <div
       className={classNames("group memo-wrapper", "memos-" + memo.id, memo.pinned && props.showPinned ? "pinned" : "", className)}
       ref={memoContainerRef}
     >
-      <div className="memo-top-wrapper mb-1">
-        <div className="w-full max-w-[calc(100%-20px)] flex flex-row justify-start items-center mr-1">
+      <div className="memo-top-wrapper mb-2">
+        <div className="w-full max-w-[calc(100%-20px)] flex flex-row justify-start items-center mr-2">
           {props.showCreator && creator && (
             <>
               <Link to={`/u/${encodeURIComponent(extractUsernameFromName(memo.creator))}`} unstable_viewTransition>
                 <Tooltip title={"Creator"} placement="top">
                   <span className="flex flex-row justify-start items-center">
-                    <UserAvatar className="!w-5 !h-5 mr-1" avatarUrl={creator.avatarUrl} />
+                    <UserAvatar className="!w-5 !h-5 mr-2" avatarUrl={creator.avatarUrl} />
                     <span className="text-sm text-gray-600 max-w-[8em] truncate dark:text-gray-400">
                       {creator.nickname || creator.username}
                     </span>
@@ -189,10 +188,10 @@ const MemoView: React.FC<Props> = (props: Props) => {
               <Icon.Dot className="w-4 h-auto text-gray-400 dark:text-zinc-400" />
             </>
           )}
-          <span className="text-sm text-gray-400 select-none" onClick={handleGotoMemoDetailPage}>
-            {displayTime}
+          <span className="text-sm text-gray-400 select-none w-full flex items-center" onClick={handleGotoMemoDetailPage}>
+            <span className="w-32">{displayTime}</span>
           </span>
-          {memo.location && <MemoLocationLink memo={memo} className="ml-2" />}
+
           {props.showPinned && memo.pinned && (
             <>
               <Icon.Dot className="w-4 h-auto text-gray-400 dark:text-zinc-400" />
@@ -267,6 +266,8 @@ const MemoView: React.FC<Props> = (props: Props) => {
         readonly={readonly}
         onClick={handleMemoContentClick}
       />
+      {memo.location && <MemoLocationLink memo={memo} />}
+
       <MemoResourceListView resources={memo.resources} />
       <MemoRelationListView memo={memo} relationList={referenceRelations} />
     </div>
