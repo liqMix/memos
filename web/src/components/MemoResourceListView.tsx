@@ -35,7 +35,7 @@ const MemoResourceListView = ({ resources = [] }: { resources: Resource[] }) => 
     if (type === "image/*") {
       return (
         <img
-          className="cursor-pointer min-h-full w-auto object-cover"
+          className="cursor-pointer max-h-96 w-auto object-cover"
           src={resource.externalLink ? url : `${url}${thumbnail ? "?thumbnail=1" : ""}`}
           onClick={() => handleImageClick(url)}
           decoding="async"
@@ -45,7 +45,7 @@ const MemoResourceListView = ({ resources = [] }: { resources: Resource[] }) => 
     } else if (type === "video/*") {
       return (
         <video
-          className="cursor-pointer w-full h-full object-contain bg-zinc-100 dark:bg-zinc-800"
+          className="cursor-pointer w-full max-h-96 object-contain bg-zinc-100 dark:bg-zinc-800"
           preload="metadata"
           crossOrigin="anonymous"
           src={absolutifyLink(url)}

@@ -189,7 +189,7 @@ const MemoView: React.FC<Props> = (props: Props) => {
             </>
           )}
           <span className="text-sm text-gray-400 select-none w-full flex items-center" onClick={handleGotoMemoDetailPage}>
-            <span className="w-32">{displayTime}</span>
+            <span className="w-64">{displayTime}</span>
           </span>
 
           {props.showPinned && memo.pinned && (
