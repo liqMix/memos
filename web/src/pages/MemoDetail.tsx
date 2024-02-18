@@ -8,6 +8,7 @@ import Icon from "@/components/Icon";
 import MemoContent from "@/components/MemoContent";
 import MemoEditor from "@/components/MemoEditor";
 import showMemoEditorDialog from "@/components/MemoEditor/MemoEditorDialog";
+import MemoLocationLink from "@/components/MemoLocationLink";
 import MemoRelationListView from "@/components/MemoRelationListView";
 import MemoResourceListView from "@/components/MemoResourceListView";
 import MemoView from "@/components/MemoView";
@@ -162,6 +163,7 @@ const MemoDetail = () => {
                 </Select>
               )}
             </div>
+            {memo.location && memo.location.name && <MemoLocationLink memo={memo} />}
             <div className="flex flex-row sm:justify-end items-center">
               {!readonly && (
                 <Tooltip title={"Edit"} placement="top">

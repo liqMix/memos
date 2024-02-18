@@ -267,7 +267,6 @@ const MemoView: React.FC<Props> = (props: Props) => {
         onClick={handleMemoContentClick}
       />
       {memo.location && !memo.parentId && <MemoLocationLink memo={memo} />}
-
       <MemoResourceListView resources={memo.resources} />
       <MemoRelationListView memo={memo} relationList={referenceRelations} />
     </div>
