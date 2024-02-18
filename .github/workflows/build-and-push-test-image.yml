@@ -41,8 +41,7 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: |
-            liqmixgit/memos
-            ghcr.io/liqmixgit/memos
+            ghcr.io/liqMix/memos
           tags: |
             type=raw,value=test
 
