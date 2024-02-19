@@ -61,7 +61,7 @@ const BaseDialog: React.FC<Props> = (props: Props) => {
 
   return (
     <div className={classNames("dialog-wrapper", className)} onMouseDown={handleSpaceClicked}>
-      <div ref={dialogContainerRef} className={classNames("dialog-container", containerClassName)} onMouseDown={(e) => e.stopPropagation()}>
+      <div ref={dialogContainerRef} className={classNames("dialog-container", containerClassName)} onMouseDown={(e) => e.stopPropagation()} onScrollCapture={(e) => e.stopPropagation()}>
         {children}
       </div>
     </div>
@@ -76,6 +76,7 @@ export function generateDialog<T extends DialogProps>(
   const tempDiv = document.createElement("div");
   const dialog = createRoot(tempDiv);
   document.body.append(tempDiv);
+  document.body.style.overflow = "hidden";
   window.history.pushState({ isDialog: true }, "");
 
   setTimeout(() => {
@@ -84,6 +85,7 @@ export function generateDialog<T extends DialogProps>(
 
   const cbs: DialogCallback = {
     destroy: () => {
+      document.body.style.overflow = "";
       tempDiv.firstElementChild?.classList.remove("showup");
       tempDiv.firstElementChild?.classList.add("showoff");
       setTimeout(() => {
@@ -92,6 +94,7 @@ export function generateDialog<T extends DialogProps>(
       }, ANIMATION_DURATION);
     },
     hide: () => {
+      document.body.style.overflow = "";
       tempDiv.firstElementChild?.classList.remove("showup");
       tempDiv.firstElementChild?.classList.add("showoff");
     },

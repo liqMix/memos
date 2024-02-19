@@ -14,6 +14,11 @@ interface State {
   originY: number;
 }
 
+interface TouchPos {
+  x: number;
+  y: number;
+}
+
 const defaultState: State = {
   scale: 1,
   originX: -1,
@@ -23,44 +28,82 @@ const defaultState: State = {
 const PreviewImageDialog: React.FC<Props> = ({ destroy, imgUrls, initialIndex, isVideo }: Props) => {
   const [currentIndex, setCurrentIndex] = useState(initialIndex);
   const [state, setState] = useState<State>(defaultState);
-  let startX = -1;
-  let endX = -1;
+  let touchPositions: TouchPos[] = [];
 
   const handleTouchStart = (event: React.TouchEvent) => {
-    if (event.touches.length > 1) {
-      // two or more fingers, ignore
+    if (event.touches.length > 2) {
+      // three or more fingers, ignore
       return;
     }
-    startX = event.touches[0].clientX;
+    // Record touch start position
+    touchPositions = Array.from(event.touches).map((touch) => ({ x: touch.clientX, y: touch.clientY }));
   };
 
   const handleTouchMove = (event: React.TouchEvent) => {
-    if (event.touches.length > 1) {
-      // two or more fingers, ignore
+    if (event.touches.length > 2) {
+      // three or more fingers, ignore
       return;
     }
-    endX = event.touches[0].clientX;
+    const endPoints = Array.from(event.touches).map((touch) => ({ x: touch.clientX, y: touch.clientY }));
 
-    // Move image with touch
-    // If current index is the first or last image, don't move the image
-    if (currentIndex === 0 && endX - startX > 0) {
+    // If one finger, move image
+    if (touchPositions.length === 1) {
+      const [startPos] = touchPositions;
+      const [endPos] = endPoints;
+      const deltaX = endPos.x - startPos.x;
+
+      // Move image with touch
+      // If current index is the first or last image, don't move the image
+      if (currentIndex === 0 && deltaX > 0) {
+        return;
+      }
+      if (currentIndex === imgUrls.length - 1 && deltaX < 0) {
+        return;
+      }
+      const img = event.currentTarget.querySelector("img") as HTMLImageElement | null;
+      if (img) {
+        img.style.transform = `translateX(${deltaX}px)`;
+      }
       return;
     }
-    if (currentIndex === imgUrls.length - 1 && endX - startX < 0) {
-      return;
-    }
-    const img = event.currentTarget.querySelector("img") as HTMLImageElement | null;
-    if (img) {
-      img.style.transform = `translateX(${endX - startX}px)`;
+
+    // If two fingers, scale image
+    if (touchPositions.length === 2) {
+      const [startPos1, startPos2] = touchPositions;
+      const [endPos1, endPos2] = endPoints;
+      const startDistance = Math.sqrt(
+        (startPos1.x - startPos2.x) ** 2 + (startPos1.y - startPos2.y) ** 2,
+      );
+      const endDistance = Math.sqrt((endPos1.x - endPos2.x) ** 2 + (endPos1.y - endPos2.y) ** 2);
+      const scale = state.scale * (endDistance / startDistance);
+      setState({ ...state, scale });
     }
   };
 
   const handleTouchEnd = (event: React.TouchEvent) => {
-    if (event.touches.length > 1) {
-      // two or more fingers, ignore
+    if (event.touches.length > 2) {
+      // three or more fingers, ignore
       return;
     }
-    if (startX > -1 && endX > -1) {
+
+    if (touchPositions.length === 2) {
+      touchPositions = [];
+      if (state.scale < 1) {
+        setState(defaultState);
+      }
+      return;
+    }
+
+    // If one finger, show next or previous image
+    const [startPos] = touchPositions;
+    const [endPos] = Array.from(event.changedTouches).map((touch) => ({ x: touch.clientX, y: touch.clientY }));
+    const startX = startPos.x;
+    const startY = startPos.y;
+    const endX = endPos.x;
+    const endY = endPos.y;
+
+    // If swipe x distance is greater than 50, show next or previous image
+    if (startX > -1 &&  endX > -1) {
       const distance = startX - endX;
       if (distance > 50) {
         showNextImg();
@@ -75,8 +118,13 @@ const PreviewImageDialog: React.FC<Props> = ({ destroy, imgUrls, initialIndex, i
       }
     }
 
-    endX = -1;
-    startX = -1;
+    // If swipe y distance is greater than 50, destroy dialog
+    if (startY > -1 && endY > -1) {
+      const distance = startY - endY;
+      if (distance > 50 || distance < -50) {
+        destroy();
+      }
+    }
   };
 
   const showPrevImg = () => {
@@ -103,16 +151,10 @@ const PreviewImageDialog: React.FC<Props> = ({ destroy, imgUrls, initialIndex, i
     }
   };
 
-  const imageComputedStyle = {
-    transform: `scale(${state.scale})`,
-    transformOrigin: `${state.originX === -1 ? "center" : `${state.originX}px`} ${state.originY === -1 ? "center" : `${state.originY}px`}`,
-  };
-
   const image = isVideo ? (
-    <video preload="metadata" crossOrigin="anonymous" style={imageComputedStyle} src={imgUrls[currentIndex]} controls />
+    <video preload="metadata" crossOrigin="anonymous" src={imgUrls[currentIndex]} controls />
   ) : (
     <img
-      style={imageComputedStyle}
       src={imgUrls[currentIndex]}
       decoding="async"
       loading="lazy"
