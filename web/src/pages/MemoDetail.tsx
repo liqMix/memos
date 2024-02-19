@@ -43,6 +43,7 @@ const MemoDetail = () => {
   const comments = commentRelations.map((relation) => memoStore.getMemoById(relation.memoId)).filter((memo) => memo) as any as Memo[];
   const readonly = memo?.creatorId !== currentUser?.id;
 
+  console.log({ comments });
   // Prepare memo.
   useEffect(() => {
     if (memoName) {
@@ -201,7 +202,7 @@ const MemoDetail = () => {
                   <span className="text-gray-400 text-sm ml-0.5">({comments.length})</span>
                 </div>
                 {comments.map((comment) => (
-                  <MemoView key={`${memo.id}-${memo.displayTime}`} memo={comment} showCreator />
+                  <MemoView key={`${comment.id}-${memo.displayTime}`} memo={comment} showCreator />
                 ))}
               </>
             )}
