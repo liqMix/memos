@@ -36,9 +36,12 @@ const BaseDialog: React.FC<Props> = (props: Props) => {
       }
     };
 
+    // If mobile back button is pressed
+    window.addEventListener("popstate", destroy);
     document.body.addEventListener("keydown", handleKeyDown);
 
     return () => {
+      window.removeEventListener("popstate", destroy);
       document.body.removeEventListener("keydown", handleKeyDown);
       dialogStore.removeDialog(dialogName);
     };
@@ -73,6 +76,7 @@ export function generateDialog<T extends DialogProps>(
   const tempDiv = document.createElement("div");
   const dialog = createRoot(tempDiv);
   document.body.append(tempDiv);
+  window.history.pushState({ isDialog: true }, "");
 
   setTimeout(() => {
     tempDiv.firstElementChild?.classList.add("showup");
