@@ -65,7 +65,6 @@ const BaseDialog: React.FC<Props> = (props: Props) => {
         ref={dialogContainerRef}
         className={classNames("dialog-container", containerClassName)}
         onMouseDown={(e) => e.stopPropagation()}
-        onScrollCapture={(e) => e.stopPropagation()}
       >
         {children}
       </div>
