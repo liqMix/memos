@@ -71,9 +71,7 @@ const PreviewImageDialog: React.FC<Props> = ({ destroy, imgUrls, initialIndex, i
     if (touchPositions.length === 2) {
       const [startPos1, startPos2] = touchPositions;
       const [endPos1, endPos2] = endPoints;
-      const startDistance = Math.sqrt(
-        (startPos1.x - startPos2.x) ** 2 + (startPos1.y - startPos2.y) ** 2,
-      );
+      const startDistance = Math.sqrt((startPos1.x - startPos2.x) ** 2 + (startPos1.y - startPos2.y) ** 2);
       const endDistance = Math.sqrt((endPos1.x - endPos2.x) ** 2 + (endPos1.y - endPos2.y) ** 2);
       const scale = state.scale * (endDistance / startDistance);
       setState({ ...state, scale });
@@ -103,13 +101,13 @@ const PreviewImageDialog: React.FC<Props> = ({ destroy, imgUrls, initialIndex, i
     const endY = endPos.y;
 
     // If swipe x distance is greater than 50, show next or previous image
-    if (startX > -1 &&  endX > -1) {
+    if (startX > -1 && endX > -1 && Math.abs(startY - endY) < 50 && state.scale <= 1){
       const distance = startX - endX;
       if (distance > 50) {
         showNextImg();
       } else if (distance < -50) {
         showPrevImg();
-      } else {
+      } else if (state.scale <= 1) {
         // Reset image position
         const img = event.currentTarget.querySelector("img") as HTMLImageElement | null;
         if (img) {
@@ -151,6 +149,11 @@ const PreviewImageDialog: React.FC<Props> = ({ destroy, imgUrls, initialIndex, i
     }
   };
 
+  // Image size by scale
+  const imgSize = {
+    width: `${state.scale * 100}%`,
+    height: `${state.scale * 100}%`,
+  };
   const image = isVideo ? (
     <video preload="metadata" crossOrigin="anonymous" src={imgUrls[currentIndex]} controls />
   ) : (
@@ -158,6 +161,7 @@ const PreviewImageDialog: React.FC<Props> = ({ destroy, imgUrls, initialIndex, i
       src={imgUrls[currentIndex]}
       decoding="async"
       loading="lazy"
+      style={imgSize}
       onLoad={(event) => {
         // Reset image position
         const img = event.target as HTMLImageElement | HTMLVideoElement | null;
