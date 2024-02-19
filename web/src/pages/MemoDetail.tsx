@@ -1,4 +1,4 @@
-import { Select, Tooltip, Option, IconButton } from "@mui/joy";
+import { Select, Tooltip, Option, IconButton, Divider } from "@mui/joy";
 import copy from "copy-to-clipboard";
 import { ClientError } from "nice-grpc-web";
 import { useEffect, useState } from "react";
@@ -114,8 +114,8 @@ const MemoDetail = () => {
     <section className="@container w-full max-w-5xl min-h-full flex flex-col justify-start items-center sm:pt-3 md:pt-6 pb-8">
       <MobileHeader />
       <div className="w-full px-4 sm:px-6">
-        <div className="relative flex-grow w-full min-h-full flex flex-col justify-start items-start border dark:border-zinc-700 bg-white dark:bg-zinc-800 shadow hover:shadow-xl transition-all p-4 pb-3 rounded-lg">
-          <div className="mb-3">
+        <div className="relative flex-grow w-full min-h-full flex flex-col justify-start items-center border dark:border-zinc-700 bg-white dark:bg-zinc-800 shadow hover:shadow-xl transition-all p-4 pb-3 rounded-lg">
+          <div className="mb-3 w-full flex flex-col justify-start items-start">
             <Link to={`/u/${encodeURIComponent(extractUsernameFromName(memo.creator))}`} unstable_viewTransition>
               <span className="w-full flex flex-row justify-start items-center">
                 <UserAvatar className="!w-10 !h-10 mr-2" avatarUrl={creator?.avatarUrl} />
@@ -139,6 +139,7 @@ const MemoDetail = () => {
             </div>
           )}
           <MemoContent key={`${memo.id}-${memo.updateTime}`} memoId={memo.id} content={memo.content} readonly={readonly} />
+          <Divider className="w-full !mt-4 !mb-4" />
           <MemoResourceListView resources={memo.resources} />
           <MemoRelationListView memo={memo} relationList={referenceRelations} />
           <div className="w-full mt-3 flex flex-row justify-between items-center gap-2">

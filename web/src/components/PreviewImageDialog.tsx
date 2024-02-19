@@ -1,15 +1,11 @@
 import React, { useState } from "react";
 import { generateDialog } from "./Dialog";
-import Icon from "./Icon";
 import "@/less/preview-image-dialog.less";
-
-const MIN_SCALE = 0.5;
-const MAX_SCALE = 5;
-const SCALE_UNIT = 0.25;
 
 interface Props extends DialogProps {
   imgUrls: string[];
   initialIndex: number;
+  isVideo?: boolean;
 }
 
 interface State {
@@ -24,15 +20,11 @@ const defaultState: State = {
   originY: -1,
 };
 
-const PreviewImageDialog: React.FC<Props> = ({ destroy, imgUrls, initialIndex }: Props) => {
+const PreviewImageDialog: React.FC<Props> = ({ destroy, imgUrls, initialIndex, isVideo }: Props) => {
   const [currentIndex, setCurrentIndex] = useState(initialIndex);
   const [state, setState] = useState<State>(defaultState);
   let startX = -1;
   let endX = -1;
-
-  const handleCloseBtnClick = () => {
-    destroy();
-  };
 
   const handleTouchStart = (event: React.TouchEvent) => {
     if (event.touches.length > 1) {
@@ -48,6 +40,19 @@ const PreviewImageDialog: React.FC<Props> = ({ destroy, imgUrls, initialIndex }:
       return;
     }
     endX = event.touches[0].clientX;
+
+    // Move image with touch
+    // If current index is the first or last image, don't move the image
+    if (currentIndex === 0 && endX - startX > 0) {
+      return;
+    }
+    if (currentIndex === imgUrls.length - 1 && endX - startX < 0) {
+      return;
+    }
+    const img = event.currentTarget.querySelector("img") as HTMLImageElement | null;
+    if (img) {
+      img.style.transform = `translateX(${endX - startX}px)`;
+    }
   };
 
   const handleTouchEnd = (event: React.TouchEvent) => {
@@ -61,6 +66,12 @@ const PreviewImageDialog: React.FC<Props> = ({ destroy, imgUrls, initialIndex }:
         showNextImg();
       } else if (distance < -50) {
         showPrevImg();
+      } else {
+        // Reset image position
+        const img = event.currentTarget.querySelector("img") as HTMLImageElement | null;
+        if (img) {
+          img.style.transform = "translateX(0)";
+        }
       }
     }
 
@@ -72,8 +83,6 @@ const PreviewImageDialog: React.FC<Props> = ({ destroy, imgUrls, initialIndex }:
     if (currentIndex > 0) {
       setState(defaultState);
       setCurrentIndex(currentIndex - 1);
-    } else {
-      destroy();
     }
   };
 
@@ -81,30 +90,17 @@ const PreviewImageDialog: React.FC<Props> = ({ destroy, imgUrls, initialIndex }:
     if (currentIndex < imgUrls.length - 1) {
       setState(defaultState);
       setCurrentIndex(currentIndex + 1);
-    } else {
-      destroy();
     }
   };
 
   const handleImgContainerClick = (event: React.MouseEvent) => {
-    if (event.clientX < window.innerWidth / 2) {
+    if (event.clientX < window.innerWidth / 6) {
       showPrevImg();
-    } else {
+    } else if (event.clientX > (window.innerWidth / 6) * 5) {
       showNextImg();
+    } else {
+      destroy();
     }
-  };
-
-  const handleImgContainerScroll = (event: React.WheelEvent) => {
-    const offsetX = event.nativeEvent.offsetX;
-    const offsetY = event.nativeEvent.offsetY;
-    const sign = event.deltaY < 0 ? 1 : -1;
-    const scale = Math.max(MIN_SCALE, Math.min(MAX_SCALE, state.scale + sign * SCALE_UNIT));
-    setState({
-      ...state,
-      originX: offsetX,
-      originY: offsetY,
-      scale: scale,
-    });
   };
 
   const imageComputedStyle = {
@@ -112,31 +108,40 @@ const PreviewImageDialog: React.FC<Props> = ({ destroy, imgUrls, initialIndex }:
     transformOrigin: `${state.originX === -1 ? "center" : `${state.originX}px`} ${state.originY === -1 ? "center" : `${state.originY}px`}`,
   };
 
+  const image = isVideo ? (
+    <video preload="metadata" crossOrigin="anonymous" style={imageComputedStyle} src={imgUrls[currentIndex]} controls />
+  ) : (
+    <img
+      style={imageComputedStyle}
+      src={imgUrls[currentIndex]}
+      decoding="async"
+      loading="lazy"
+      onLoad={(event) => {
+        // Reset image position
+        const img = event.target as HTMLImageElement | HTMLVideoElement | null;
+        if (img) {
+          img.style.transform = "translateX(0)";
+        }
+      }}
+    />
+  );
+
   return (
     <>
-      <div className="btns-container">
-        <button className="btn" onClick={handleCloseBtnClick}>
-          <Icon.X className="icon-img" />
-        </button>
-      </div>
-      <div className="img-container" onClick={handleImgContainerClick}>
-        <img
-          style={imageComputedStyle}
-          src={imgUrls[currentIndex]}
-          onClick={(e) => e.stopPropagation()}
-          onTouchStart={handleTouchStart}
-          onTouchMove={handleTouchMove}
-          onTouchEnd={handleTouchEnd}
-          onWheel={handleImgContainerScroll}
-          decoding="async"
-          loading="lazy"
-        />
+      <div
+        className="img-container"
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+        onClick={handleImgContainerClick}
+      >
+        {image}
       </div>
     </>
   );
 };
 
-export default function showPreviewImageDialog(imgUrls: string[] | string, initialIndex?: number): void {
+export default function showPreviewImageDialog(imgUrls: string[] | string, initialIndex?: number, isVideo?: boolean): void {
   generateDialog(
     {
       className: "preview-image-dialog",
@@ -146,6 +151,7 @@ export default function showPreviewImageDialog(imgUrls: string[] | string, initi
     {
       imgUrls: Array.isArray(imgUrls) ? imgUrls : [imgUrls],
       initialIndex: initialIndex || 0,
+      isVideo,
     },
   );
 }

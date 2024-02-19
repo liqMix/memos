@@ -172,7 +172,7 @@ const MemoView: React.FC<Props> = (props: Props) => {
       ref={memoContainerRef}
     >
       <div className="memo-top-wrapper mb-2">
-        <div className="w-full max-w-[calc(100%-20px)] flex flex-row justify-start items-center mr-2">
+        <div className="w-full max-w-[calc(100%)] flex flex-row justify-start items-center" onClick={handleGotoMemoDetailPage}>
           {props.showCreator && creator && (
             <>
               <Link to={`/u/${encodeURIComponent(extractUsernameFromName(memo.creator))}`} unstable_viewTransition>
@@ -186,11 +186,10 @@ const MemoView: React.FC<Props> = (props: Props) => {
                 </Tooltip>
               </Link>
               <Icon.Dot className="w-4 h-auto text-gray-400 dark:text-zinc-400" />
+              <span className="w-full text-sm text-gray-400">{displayTime}</span>
             </>
           )}
-          <span className="text-sm text-gray-400 select-none w-full flex items-center" onClick={handleGotoMemoDetailPage}>
-            <span className="w-64">{displayTime}</span>
-          </span>
+          <span className="select-none flex items-center">{memo.location && !memo.parentId && <MemoLocationLink memo={memo} />}</span>
 
           {props.showPinned && memo.pinned && (
             <>
@@ -201,63 +200,69 @@ const MemoView: React.FC<Props> = (props: Props) => {
             </>
           )}
         </div>
-        <div className="btns-container space-x-2">
-          <div className="w-auto hidden group-hover:flex flex-row justify-between items-center">
-            {props.showVisibility && memo.visibility !== Visibility.PRIVATE && (
-              <>
-                <Tooltip title={t(`memo.visibility.${convertVisibilityToString(memo.visibility).toLowerCase()}` as any)} placement="top">
-                  <span>
-                    <VisibilityIcon visibility={memo.visibility} />
-                  </span>
-                </Tooltip>
-              </>
-            )}
-          </div>
-          {!readonly && (
-            <>
-              <span className="btn more-action-btn">
-                <Icon.MoreVertical className="icon-img" />
-              </span>
-              <div className="more-action-btns-wrapper">
-                <div className="more-action-btns-container min-w-[6em]">
-                  {props.showPinned && (
-                    <span className="btn" onClick={handleTogglePinMemoBtnClick}>
-                      {memo.pinned ? <Icon.BookmarkMinus className="w-4 h-auto mr-2" /> : <Icon.BookmarkPlus className="w-4 h-auto mr-2" />}
-                      {memo.pinned ? t("common.unpin") : t("common.pin")}
+        {((props.showVisibility && memo.visibility === Visibility.PRIVATE) || !readonly) && (
+          <div className="btns-container space-x-2 ml-3">
+            <div className="w-auto flex-row justify-between items-center">
+              {props.showVisibility && memo.visibility !== Visibility.PRIVATE && (
+                <>
+                  <Tooltip title={t(`memo.visibility.${convertVisibilityToString(memo.visibility).toLowerCase()}` as any)} placement="top">
+                    <span>
+                      <VisibilityIcon visibility={memo.visibility} />
                     </span>
-                  )}
-                  <span className="btn" onClick={handleEditMemoClick}>
-                    <Icon.Edit3 className="w-4 h-auto mr-2" />
-                    {t("common.edit")}
-                  </span>
-                  <span className="btn" onClick={handleMarkMemoClick}>
-                    <Icon.Link className="w-4 h-auto mr-2" />
-                    {t("common.mark")}
-                  </span>
-                  <span className="btn" onClick={() => showShareMemoDialog(memo)}>
-                    <Icon.Share className="w-4 h-auto mr-2" />
-                    {t("common.share")}
-                  </span>
-                  <Divider className="!my-1" />
-                  <span className="btn text-orange-500" onClick={handleArchiveMemoClick}>
-                    <Icon.Archive className="w-4 h-auto mr-2" />
-                    {t("common.archive")}
-                  </span>
-                  <span className="btn text-red-600" onClick={handleDeleteMemoClick}>
-                    <Icon.Trash className="w-4 h-auto mr-2" />
-                    {t("common.delete")}
-                  </span>
-                  <Divider className="!my-1" />
-                  <div className="w-full pl-3 pr-2 text-xs text-gray-400">
-                    <div className="font-mono max-w-20 cursor-pointer truncate" onClick={handleCopyMemoId}>
-                      ID: {memo.name}
+                  </Tooltip>
+                </>
+              )}
+            </div>
+            {!readonly && (
+              <>
+                <span className="btn more-action-btn">
+                  <Icon.MoreVertical className="icon-img" />
+                </span>
+                <div className="more-action-btns-wrapper">
+                  <div className="more-action-btns-container min-w-[6em]">
+                    {props.showPinned && (
+                      <span className="btn" onClick={handleTogglePinMemoBtnClick}>
+                        {memo.pinned ? (
+                          <Icon.BookmarkMinus className="w-4 h-auto mr-2" />
+                        ) : (
+                          <Icon.BookmarkPlus className="w-4 h-auto mr-2" />
+                        )}
+                        {memo.pinned ? t("common.unpin") : t("common.pin")}
+                      </span>
+                    )}
+                    <span className="btn" onClick={handleEditMemoClick}>
+                      <Icon.Edit3 className="w-4 h-auto mr-2" />
+                      {t("common.edit")}
+                    </span>
+                    <span className="btn" onClick={handleMarkMemoClick}>
+                      <Icon.Link className="w-4 h-auto mr-2" />
+                      {t("common.mark")}
+                    </span>
+                    <span className="btn" onClick={() => showShareMemoDialog(memo)}>
+                      <Icon.Share className="w-4 h-auto mr-2" />
+                      {t("common.share")}
+                    </span>
+                    <Divider className="!my-1" />
+                    <span className="btn text-orange-500" onClick={handleArchiveMemoClick}>
+                      <Icon.Archive className="w-4 h-auto mr-2" />
+                      {t("common.archive")}
+                    </span>
+                    <span className="btn text-red-600" onClick={handleDeleteMemoClick}>
+                      <Icon.Trash className="w-4 h-auto mr-2" />
+                      {t("common.delete")}
+                    </span>
+                    <Divider className="!my-1" />
+                    <div className="w-full pl-3 pr-2 text-xs text-gray-400">
+                      <div className="font-mono max-w-20 cursor-pointer truncate" onClick={handleCopyMemoId}>
+                        ID: {memo.name}
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </>
-          )}
-        </div>
+              </>
+            )}
+          </div>
+        )}
       </div>
       <MemoContent
         key={`${memo.id}-${memo.updateTime}`}
@@ -266,7 +271,7 @@ const MemoView: React.FC<Props> = (props: Props) => {
         readonly={readonly}
         onClick={handleMemoContentClick}
       />
-      {memo.location && !memo.parentId && <MemoLocationLink memo={memo} />}
+      {(memo.resources.length > 0 || referenceRelations.length > 0) && <Divider className="w-full !mt-4 !mb-3" />}
       <MemoResourceListView resources={memo.resources} />
       <MemoRelationListView memo={memo} relationList={referenceRelations} />
     </div>

@@ -35,6 +35,8 @@ const SquareDiv: React.FC<Props> = (props: Props) => {
     };
   }, []);
 
+  useEffect(() => {}, []);
+
   return (
     <div ref={squareDivRef} className={`${[baseSide === "width" ? "w-full" : "h-full", className ?? ""].join(" ")}`}>
       {children}

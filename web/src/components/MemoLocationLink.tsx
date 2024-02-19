@@ -15,7 +15,7 @@ const MemoLocationLink = (props: Props) => {
   return (
     <div
       className={
-        "w-full text-xs flex flex-row justify-end items-center mr-2 cursor-pointer dark:text-gray-400 bg-gray-200 dark:bg-zinc-800 truncate"
+        "w-full text-xs flex flex-row justify-end items-center cursor-pointer dark:text-gray-400 bg-gray-200 dark:bg-zinc-800 truncate"
       }
       onClick={(e) => {
         e.stopPropagation();
