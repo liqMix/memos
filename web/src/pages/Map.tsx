@@ -263,12 +263,14 @@ const MapMarkers: React.FC<Props> = (props: Props) => {
     // Draw separate lines for each user
     // Divide memos by user
     const userMemos: Map<number, MapMemo[]> = new Map();
-    memos.forEach((memo) => {
-      if (!userMemos.has(memo.creatorId)) {
-        userMemos.set(memo.creatorId, []);
-      }
-      userMemos.get(memo.creatorId)?.push(memo);
-    });
+    memos
+      .filter((memo) => memo.location?.latitude && memo.location.longitude)
+      .forEach((memo) => {
+        if (!userMemos.has(memo.creatorId)) {
+          userMemos.set(memo.creatorId, []);
+        }
+        userMemos.get(memo.creatorId)?.push(memo);
+      });
 
     // Filter to selected user
     if (selectedUser > 0) {
