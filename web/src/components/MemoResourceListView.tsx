@@ -22,24 +22,26 @@ const MemoResourceListView = ({ resources = [] }: { resources: Resource[] }) => 
     otherResources.push(resource);
   });
 
-  const handleImageClick = (imgUrl: string) => {
-    const imgUrls = mediaResources
-      .filter((resource) => getResourceType(resource) === "image/*")
-      .map((resource) => getResourceUrl(resource));
-    const index = imgUrls.findIndex((url) => url === imgUrl);
-    showPreviewImageDialog(imgUrls, index);
-  };
+  // const handleImageClick = (imgUrl: string) => {
+  //   const imgUrls = mediaResources
+  //     .filter((resource) => getResourceType(resource) === "image/*")
+  //     .map((resource) => getResourceUrl(resource));
+  //   const index = imgUrls.findIndex((url) => url === imgUrl);
+  //   showPreviewImageDialog(imgUrls, index);
+  // };
 
   const MediaCard = ({ resource, thumbnail }: { resource: Resource; thumbnail?: boolean }) => {
     const type = getResourceType(resource);
     const url = getResourceUrl(resource);
     const className = thumbnail ? "min-h-full" : "h-96";
     if (type === "image/*") {
+      // just open image in new tab
       return (
         <img
           className={classNames("cursor-pointer object-cover min-w-full", className)}
           src={resource.externalLink ? url : `${url}${thumbnail ? "?thumbnail=1" : ""}`}
-          onClick={() => handleImageClick(url)}
+          onClick={() => window.open(absolutifyLink(url), "_blank")}
+          // onClick={() => handleImageClick(url)}
           decoding="async"
           loading="lazy"
         />
