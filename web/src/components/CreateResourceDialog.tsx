@@ -158,7 +158,65 @@ const CreateResourceDialog: React.FC<Props> = (props: Props) => {
           if (!fileOnInput) {
             continue;
           }
-          const resource = await resourceStore.createResourceWithBlob(file);
+
+          // If the user uploads a file, we resize it locally to a max width and height and then convert it to webp. If any failure, excluding mimetype convertToBlob, occurs during this, then the original file will be used.
+          let blob: File | Blob;
+          if (file.type.startsWith("image")) {
+            // TODO: Make max width and height configurable either system-wide or per user (probably system-wide).
+            const maxWidth: number = 1920;
+            const maxHeight: number = 1920;
+            blob = await new Promise((resolve, reject) => {
+              const reader = new FileReader();
+              reader.onload = (ev: ProgressEvent<FileReader>): any => {
+                const img = new Image();
+                img.onload = async () => {
+                  const ratio = Math.min(maxWidth / img.naturalWidth, maxHeight / img.naturalHeight);
+                  const width = img.naturalWidth * ratio;
+                  const height = img.naturalHeight * ratio;
+
+                  const canvas = new OffscreenCanvas(width, height);
+                  const ctx = canvas.getContext("2d");
+                  if (!ctx) {
+                    reject(new Error("couldn't create context"));
+                    return;
+                  }
+                  ctx.drawImage(img, 0, 0, width, height);
+                  let blob: Blob;
+                  try {
+                    // Default to webp. If not supported, this will return a png.
+                    blob = await canvas.convertToBlob({ type: "image/webp" });
+                  } catch (e) {
+                    // Otherwise, just use the original file as the blob.
+                    console.error(new Error("failed to convert to blob: " + e));
+                    blob = file;
+                  }
+                  resolve(blob);
+                };
+                img.onerror = (ev: string | Event) => {
+                  reject(ev);
+                };
+                if (!ev.target || !ev.target.result) {
+                  reject(new Error("no target for file reader"));
+                  return;
+                }
+                img.src = ev.target.result as string;
+              };
+              reader.onerror = (ev: ProgressEvent<FileReader>): any => {
+                reject("failed to read from file reader: " + ev);
+              };
+              reader.readAsDataURL(file);
+            });
+          } else {
+            blob = file;
+          }
+
+          // FIXME: createResourceWithBlob should not take a File object as its parameter, but rather a Blob like the name implies...
+          const resource = await resourceStore.createResourceWithBlob({
+            name: file.name,
+            lastModified: file.lastModified,
+            webkitRelativePath: file.webkitRelativePath,
+            ...blob,
+          });
           createdResourceList.push(resource);
         }
       } else {
