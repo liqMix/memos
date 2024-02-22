@@ -161,7 +161,7 @@ const CreateResourceDialog: React.FC<Props> = (props: Props) => {
 
           // If the user uploads a file, we resize it locally to a max width and height and then convert it to webp. If any failure, excluding mimetype convertToBlob, occurs during this, then the original file will be used.
           let blob: File | Blob;
-          if (file.type.startsWith("image") && file.type !== "image/webp" && file.type !== "image/svg+xml" && file.type !== "image/gif") {
+          if (file.type.startsWith("image") && file.type !== "image/svg+xml" && file.type !== "image/gif") {
             // TODO: Make max width and height configurable either system-wide or per user (probably system-wide).
             const maxWidth: number = 1920;
             const maxHeight: number = 1920;
@@ -176,6 +176,11 @@ const CreateResourceDialog: React.FC<Props> = (props: Props) => {
 
                   // Don't upscale.
                   if (img.naturalWidth <= maxWidth && img.naturalHeight <= maxHeight) {
+                    // Don't re-encode webp if it's already webp and its dimensions are within our max width and height.
+                    if (file.type === "image/webp") {
+                      resolve(file);
+                      return;
+                    }
                     width = img.naturalWidth;
                     height = img.naturalHeight;
                   }
