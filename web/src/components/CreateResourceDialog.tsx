@@ -171,8 +171,14 @@ const CreateResourceDialog: React.FC<Props> = (props: Props) => {
                 const img = new Image();
                 img.onload = async () => {
                   const ratio = Math.min(maxWidth / img.naturalWidth, maxHeight / img.naturalHeight);
-                  const width = img.naturalWidth * ratio;
-                  const height = img.naturalHeight * ratio;
+                  let width = img.naturalWidth * ratio;
+                  let height = img.naturalHeight * ratio;
+
+                  // Don't upscale.
+                  if (img.naturalWidth <= maxWidth && img.naturalHeight <= maxHeight) {
+                    width = img.naturalWidth;
+                    height = img.naturalHeight;
+                  }
 
                   const canvas = new OffscreenCanvas(width, height);
                   const ctx = canvas.getContext("2d");
@@ -210,13 +216,7 @@ const CreateResourceDialog: React.FC<Props> = (props: Props) => {
             blob = file;
           }
 
-          // FIXME: createResourceWithBlob should not take a File object as its parameter, but rather a Blob like the name implies...
-          const resource = await resourceStore.createResourceWithBlob({
-            name: file.name,
-            lastModified: file.lastModified,
-            webkitRelativePath: file.webkitRelativePath,
-            ...blob,
-          });
+          const resource = await resourceStore.createResourceWithBlob(blob, file.name);
           createdResourceList.push(resource);
         }
       } else {

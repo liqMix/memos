@@ -26,14 +26,14 @@ export const useResourceStore = () => {
       store.dispatch(setResources([resource, ...resourceList]));
       return resource;
     },
-    async createResourceWithBlob(file: File): Promise<Resource> {
-      const { name: filename, size } = file;
+    async createResourceWithBlob(blob: Blob, filename: string): Promise<Resource> {
+      const { size } = blob;
       if (size > maxUploadSizeMiB * 1024 * 1024) {
         return Promise.reject(t("message.maximum-upload-size-is", { size: maxUploadSizeMiB }));
       }
 
       const formData = new FormData();
-      formData.append("file", file, filename);
+      formData.append("file", blob, filename);
       const { data: resource } = await api.createResourceWithBlob(formData);
       const resourceList = state.resources;
       store.dispatch(setResources([resource, ...resourceList]));
