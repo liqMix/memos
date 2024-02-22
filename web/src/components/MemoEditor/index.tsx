@@ -196,7 +196,7 @@ const MemoEditor = (props: Props) => {
 
     let resource = undefined;
     try {
-      resource = await resourceStore.createResourceWithBlob(file);
+      resource = await resourceStore.createResourceWithBlob(file, file.name);
     } catch (error: any) {
       console.error(error);
       toast.error(typeof error === "string" ? error : error.response.data.message);
